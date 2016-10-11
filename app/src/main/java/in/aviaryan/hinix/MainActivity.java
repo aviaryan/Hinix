@@ -381,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
             int lenMap = chodu.size();
             String tempString = "";
             //appending the string of text view
-            
+
 
 
         }
