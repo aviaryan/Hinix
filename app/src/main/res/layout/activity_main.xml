@@ -11,10 +11,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/topPanel">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:paddingBottom="10dp"
-        android:id="@+id/topPanel">
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +33,12 @@
             android:text="MAX_Score:23"
             android:id="@+id/max"/>
 
+    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Word:"
+            android:id="@+id/current_word"/>
     </LinearLayout>
 
 

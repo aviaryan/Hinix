@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Map<Integer, String> myMap = new HashMap<Integer, String>();
     final ArrayList<Integer> al=new ArrayList<Integer>();
     String presentWord;
+    private TextView user_current;
 
     private int NUM_ROWS=8;
     private  int NUM_COLS=8;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        user_current=(TextView) findViewById(R.id.current_word);
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
         Log.e("Level", Level + "");
@@ -196,9 +198,10 @@ public class MainActivity extends AppCompatActivity {
                                 check = check + temp.getText();
                             }
                             presentWord=check;
+                            user_current.setText("Current Word: "+ presentWord);
 
-                            Toast.makeText(getApplicationContext(), " row= " + check,
-                                    Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), " row= " + check,
+                                   // Toast.LENGTH_LONG).show();
 
                             return true;
                         }
@@ -245,6 +248,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 TextView backTemp1 = (TextView)findViewById(R.id.undo);
                 backTemp1.setClickable(false);
+                presentWord="";
+                user_current.setText("Current Word: "+ presentWord);
             }
             if(al.size() != 0)
             {
@@ -322,9 +327,10 @@ public class MainActivity extends AppCompatActivity {
 
             presentId = al.get(al.size() - 1);
 
-
-            Toast.makeText(getApplicationContext(), " row= " + check,
-                    Toast.LENGTH_LONG).show();
+            presentWord=check;
+            user_current.setText("Current Word: "+ presentWord);
+            /*Toast.makeText(getApplicationContext(), " row= " + check,
+                    Toast.LENGTH_LONG).show();*/
 
             if(al.size() == 0)
             {
@@ -356,8 +362,13 @@ public class MainActivity extends AppCompatActivity {
 
         //check in the library
 
+
         if(true)
         {
+
+            //saurabh - clear current word
+            user_current.setText("Current Word: ");
+
             chodu.add(presentWord);
             //handling addition of the new words
             String temp = presentWord;
@@ -370,9 +381,8 @@ public class MainActivity extends AppCompatActivity {
             int lenMap = chodu.size();
             String tempString = "";
             //appending the string of text view
+            
 
-            Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
-                    Toast.LENGTH_LONG).show();
 
         }
         else
@@ -380,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
                     Toast.LENGTH_LONG).show();
         }
+
 
 
     }
