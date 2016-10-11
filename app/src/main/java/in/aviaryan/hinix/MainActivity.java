@@ -363,8 +363,7 @@ public class MainActivity extends AppCompatActivity {
         //check in the library
 
 
-        if(true)
-        {
+        if(true) {
 
             //saurabh - clear current word
             user_current.setText("Current Word: ");
@@ -373,8 +372,7 @@ public class MainActivity extends AppCompatActivity {
             //handling addition of the new words
             String temp = presentWord;
             int lenUndo = presentWord.length();
-            for(int k=0;k<lenUndo;k++)
-            {
+            for (int k = 0; k < lenUndo; k++) {
                 undo();
             }
 
@@ -383,7 +381,16 @@ public class MainActivity extends AppCompatActivity {
             //appending the string of text view
 
 
+            for (int i = 0; i < NUM_ROWS; i++) {
+                for (int j = 0; j < NUM_COLS; j++) {
+                    TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
+                    viewRefresh.setClickable(true);
+                }
+            }
+            TextView screen = (TextView)findViewById(R.id.textScreen);
+            tempString = (String)screen.getText() +"***" +temp;
 
+            screen.setText(tempString);
         }
         else
         {
