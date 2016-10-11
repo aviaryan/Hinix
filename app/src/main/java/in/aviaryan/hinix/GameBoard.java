@@ -76,7 +76,6 @@ public class GameBoard {
                         ArrayList<String> order = new ArrayList<>();
                         order.add(i + " " + j);
                         visited.add(i + " " + j);
-//                        solutionList = new ArrayList<>();
                         success = fitWord(word.substring(1), i, j, visited, order);
                         if (success){
                             tries = 0;
@@ -134,7 +133,6 @@ public class GameBoard {
                     newOrder.add(i + " " + j);
                     success = fitWord(s.substring(1), i, j, newVisited, newOrder);
                     if (success) {
-//                        solutionList = newOrder;
                         break;
                     }
                 }
