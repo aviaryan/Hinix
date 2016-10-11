@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private void initBoard(){
         AssetManager assetManager = getAssets();
         try {
-            InputStream inputStream = assetManager.open("words10000.txt");
+            // Thanks to
+            // https://github.com/ManiacDC/TypingAid/tree/master/Wordlists
+            InputStream inputStream = assetManager.open("wordlist_weighted_norvig_10k.txt");
             gameBoard = new GameBoard(inputStream);
         } catch (IOException e){
             (Toast.makeText(this, "There was a problem loading dictionary", Toast.LENGTH_LONG)).show();

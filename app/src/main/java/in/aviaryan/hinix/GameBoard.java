@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -21,6 +24,7 @@ public class GameBoard {
 
     public ArrayList<String> computerList = new ArrayList<>();
     private HashSet<String> computerSet = new HashSet<>();
+    private HashMap<String, ArrayList<String>> computerSteps = new HashMap<>();
 
     Random rand = new Random();
     String LOG_TAG = "TestGB";
@@ -40,26 +44,37 @@ public class GameBoard {
      */
     public void makeBoard(int n, int m){
         chars = new char[n][m];
+        HashSet<String> addedWords = new HashSet<>();
+        ArrayList<String> addedWordsList = new ArrayList<>();
         rowCount = n;
         colCount = m;
-        int maxWordLen = Math.max(n, m) + 1, i, j;
+        int maxWordLen = Math.max(n, m), i, j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
             for (j=0; j<m; j++)
                 chars[i][j] = '\0';
         // add words
-        int tries = 0, pos;
+        int tries = 0, pos = 0;
         String word;
-        boolean success;
+        boolean success = false;
+        int shortRun = 0;
         String badWords = "zyxq";
 
-        while (tries < 10){
-            pos = rand.nextInt(dictSize);
+        while (tries < 100){
+//            if (success) {
+//                pos = (pos + 1) % dictSize;
+//            } else {
+                pos = rand.nextInt(dictSize);
+//            }
             word = wordList.get(pos);
+            if (addedWords.contains(word)){
+                continue;
+            }
             success = false;
+            shortRun = 0;
             // if in-elligible word, throw it
-            if (word.length() < 3 || word.length() > maxWordLen)
+            if (word.length() < 5 || word.length() > maxWordLen)
                 continue;
             for (i=0; i<badWords.length(); i++){
                 if (word.contains(badWords.charAt(i) + "")){
@@ -68,9 +83,19 @@ public class GameBoard {
             }
             if (i != badWords.length()) // premature exit
                 continue;
+//            if (pos > 5000 && word.length() == 3) // very weird words (acronyms)
+//                continue;
             // find place for word
             for (i=0; i<n; i++) {
                 for (j=0; j<m; j++){
+                    if (shortRun == 0) {
+                        int posArr[] = findSameCharGrid(word.charAt(0));
+                        if (posArr[0] != -1) {
+                            i = posArr[0]; j = posArr[1]; shortRun = 1;
+                        } else {
+                            shortRun = 2;
+                        }
+                    }
                     if (chars[i][j] == '\0' || chars[i][j] == word.charAt(0)){
                         HashSet<String> visited = new HashSet<>();
                         ArrayList<String> order = new ArrayList<>();
@@ -80,6 +105,8 @@ public class GameBoard {
                         if (success){
                             tries = 0;
                             int count = 0;
+                            addedWords.add(word);
+                            addedWordsList.add(word);
                             // add word to board
                             if (solutionList.size() != word.length()){
                                 Log.v(LOG_TAG, word + " " + solutionList.toString());
@@ -93,6 +120,9 @@ public class GameBoard {
                             break;
                         }
                     }
+                    if (shortRun == 1){
+                        shortRun = 2; i=0; j=-1;
+                    }
                 }
                 if (success)
                     break;
@@ -100,6 +130,7 @@ public class GameBoard {
             if (!success)
                 tries++;
         }
+        // end things
         // fill remaining by anything
         for (i=0; i<n; i++) {
             for (j = 0; j < m; j++) {
@@ -107,6 +138,45 @@ public class GameBoard {
                     chars[i][j] = (char) (97 + rand.nextInt(26));
             }
         }
+
+        Log.v(LOG_TAG, "words added " + addedWords.size());
+        Log.v(LOG_TAG, "words added " + addedWordsList.toString());
+    }
+
+    /*
+     * find char 'c' in the grid
+     */
+    private int[] findSameCharGrid(char c){
+        int arr[] = {-1, -1};
+        for (int i=0; i<rowCount; i++){
+            for (int j=0; j<colCount; j++){
+                if (chars[i][j] == c) {
+                    arr[0] = i;
+                    arr[1] = j;
+                }
+            }
+        }
+        return arr;
+    }
+
+    /*
+     * find char 'c' in neighbour
+     */
+    private int[] findSameCharNeighbour(char c, int x, int y, HashSet<String> visited){
+        int arr[] = {-1, -1};
+        for (int i=x-1; i<=x+1 && i<rowCount; i++) {
+            for (int j = y - 1; j <= y + 1 && j < colCount; j++) {
+                if (!possibleXY(i, j))
+                    continue;
+                if (visited.contains(i + " " + j))
+                    continue;
+                if (chars[i][j] == c){
+                    arr[0] = i;
+                    arr[1] = j;
+                }
+            }
+        }
+        return arr;
     }
 
     /*
@@ -120,8 +190,17 @@ public class GameBoard {
             return true;
         }
         boolean success = false;
+        int shortRun = 0;
         for (i=x-1; i<=x+1 && i<rowCount; i++){
             for (j=y-1; j<=y+1 && j<colCount; j++){
+                if (shortRun == 0){
+                    int posArr[] = findSameCharNeighbour(s.charAt(0), x, y, visited);
+                    if (posArr[0] != -1) {
+                        i = posArr[0]; j = posArr[1]; shortRun = 1;
+                    } else {
+                        shortRun = 2;
+                    }
+                }
                 if (!possibleXY(i, j))
                     continue;
                 if (visited.contains(i + " " + j))
@@ -135,6 +214,9 @@ public class GameBoard {
                     if (success) {
                         break;
                     }
+                }
+                if (shortRun == 1){
+                    shortRun = 2; i=0; j=-1;
                 }
             }
             if (success)
@@ -156,6 +238,7 @@ public class GameBoard {
     public void findWords(){
         computerList.clear();
         computerSet.clear();
+        computerSteps.clear();
         for (int i=0; i<rowCount; i++)
             for (int j=0; j<colCount; j++){
                 ArrayList <String> order = new ArrayList<>();
@@ -166,9 +249,10 @@ public class GameBoard {
     private void findWordsUtil(int x, int y, String str, HashSet<String> visited, ArrayList<String> order){
         order.add(x + " " + y);
         visited.add(x + " " + y);
-        if (isWord(str) && str.length() > 2 && !computerSet.contains(str)) {
+        if (isWord(str) && str.length() > 3 && !computerSet.contains(str)) {
             computerList.add(str);
             computerSet.add(str);
+            computerSteps.put(str, order);
         }
         int i, j;
         for (i=x-1; i<=x+1 && i<rowCount; i++) {
@@ -177,13 +261,67 @@ public class GameBoard {
                     continue;
                 if (visited.contains(i + " " + j))
                     continue;
-                findWordsUtil(i, j, str + chars[i][j], visited, order);
+                findWordsUtil(i, j, str + chars[i][j], new HashSet<String>(visited), new ArrayList<String>(order));
             }
         }
     }
 
+    public void findWords2(){
+        computerList.clear();
+        computerSet.clear();
+        computerSteps.clear();
+        boolean ans;
+        ArrayList<String> as = wordList;
+        Collections.reverse(as);
+        for (String word: as) {
+            if (word.length() < 4 || computerSet.contains(word))
+                continue;
+            ans = false;
+            for (int i = 0; i < rowCount; i++) {
+                for (int j = 0; j < colCount; j++) {
+                    if (chars[i][j] == word.charAt(0))
+                        ans = findWords2Util(i, j, 1, word, new HashSet<String>(), new ArrayList<String>());
+                    if (ans) break;
+                }
+                if (ans) break;
+            }
+        }
+    }
+
+    private boolean findWords2Util(int x, int y, int pos, String str, HashSet<String> visited, ArrayList<String> order){
+        order.add(x + " " + y);
+        visited.add(x + " " + y);
+        if (str.length() == pos){
+            computerList.add(str);
+            computerSet.add(str);
+            computerSteps.put(str, order);
+            return true;
+        }
+        // half word
+        if (pos >= 4 && isWord(str.substring(0, pos)) && !computerSet.contains(str.substring(0, pos))){
+            computerList.add(str.substring(0, pos));
+            computerSet.add(str.substring(0, pos));
+            computerSteps.put(str.substring(0, pos), order);
+        }
+        // main solve
+        int i, j;
+        boolean ans = false;
+        for (i=x-1; i<=x+1 && i<rowCount; i++) {
+            for (j = y - 1; j <= y + 1 && j < colCount; j++) {
+                if (!possibleXY(i, j))
+                    continue;
+                if (visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos))
+                    continue;
+                ans = findWords2Util(i, j, pos+1, str, new HashSet<String>(visited), new ArrayList<String>(order));
+                if (ans) break;
+            }
+            if (ans) break;
+        }
+        return ans;
+    }
+
     public int getComputerScore(){
-        findWords();
+        findWords2();
         int score = 0;
         for (String s: computerList){
             score += s.length();
@@ -192,7 +330,14 @@ public class GameBoard {
     }
 
     /*
-     * true if string is a word
+     * true if string can be formed on board
+     */
+    boolean isWordOnBoard(String word){
+        return computerSet.contains(word);
+    }
+
+    /*
+     * true if string is a word from dictionary
      */
     boolean isWord(String s){
         return wordSet.contains(s);
