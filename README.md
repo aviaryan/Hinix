@@ -2,7 +2,7 @@
 
 ### An Interesting Word game.
 
-##Rules of the Game: 
+## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
 + You can move up, down, left, right, and diagonally to make a word.
 + Minimum word size is 4.
@@ -11,5 +11,6 @@
 + The game continues till you exhaust all the points.
 
 ## Concept Used:
-+ Depth First Search for generating the boards.
-+ Depth First Traversal for solving a boars
+
++ Depth First Search and a custom optmized greedy algorithm for generating the boards.
++ Depth First Traversal for solving the board.
