@@ -1,11 +1,12 @@
 package in.aviaryan.hinix;
 
+import android.support.v7.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -30,8 +31,12 @@ import java.util.Map;
 import java.util.Set;
 
 import static java.security.AccessController.getContext;
+import android.content.res.AssetManager;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
+    GameBoard gameBoard;
 
     private TableLayout tableLayout;
     int presentId;
@@ -505,6 +510,18 @@ public class MainActivity extends AppCompatActivity {
                 backTemp1.setClickable(true);
             }
 
+        }
+    }
+
+    private void initBoard(){
+        AssetManager assetManager = getAssets();
+        try {
+            // Thanks to
+            // https://github.com/ManiacDC/TypingAid/tree/master/Wordlists
+            InputStream inputStream = assetManager.open("wordlist_weighted_norvig_10k.txt");
+            gameBoard = new GameBoard(inputStream);
+        } catch (IOException e){
+            (Toast.makeText(this, "There was a problem loading dictionary", Toast.LENGTH_LONG)).show();
         }
     }
 
