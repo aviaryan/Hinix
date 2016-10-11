@@ -8,17 +8,50 @@
     android:gravity="center_horizontal"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="in.aviaryan.hinix.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/topPanel">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current_Score:23"
+            android:id="@+id/current"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="MAX_Score:23"
+            android:id="@+id/max"/>
+
+    </LinearLayout>
 
 
     <TableLayout
         android:layout_width="380dp"
         android:foregroundGravity="center"
         android:layout_height="380dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="80dp"
-        android:id="@+id/grid"
-        android:padding="10dp"
-        android:gravity="center_horizontal">
+        android:layout_below="@id/topPanel"
+        android:layout_marginTop="20dp"
+        android:id="@+id/grid">
     </TableLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid"
+        android:layout_marginTop="10dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/undo"
+            android:text="Undo"
+            android:onClick="clickBack"
+
+            />
+    </LinearLayout>
 
 </RelativeLayout>
