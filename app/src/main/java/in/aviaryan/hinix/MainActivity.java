@@ -45,30 +45,41 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<Integer> al=new ArrayList<Integer>();
     String presentWord;
     private TextView user_current;
+    private TextView computer;
+    private TextView userScore;
 
     private int NUM_ROWS=8;
     private  int NUM_COLS=8;
     private int fontSize=18;
+    int counter=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         user_current=(TextView) findViewById(R.id.current_word);
+       computer=(TextView) findViewById(R.id.max);
+        userScore=(TextView) findViewById(R.id.current);
+
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
         Log.e("Level", Level + "");
         switch (Level % 4) {
             case 1:
-                NUM_COLS = NUM_ROWS = 4;
+                NUM_COLS =4;
+                NUM_ROWS=4;
                 break;
             case 2:
-                NUM_COLS = NUM_ROWS = 6;
+                NUM_COLS =5;
+                NUM_ROWS=5;
                 break;
             case 3:
-                NUM_COLS = NUM_ROWS = 8;
+                NUM_COLS =6;
+                NUM_ROWS=6;
                 break;
         }
-
+        initBoard();
+        Log.e("ASd", "init done");
+        gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
@@ -105,9 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 //charTile.setBackgroundColor(Color.GREEN);
                 charTile.setId(NUM_ROWS * i + j);
                 charTile.setTypeface(null, Typeface.BOLD);
-                charTile.setText("A");
+                charTile.setText(gameBoard.chars[i][j]+"");
                 charTile.setTextColor(Color.parseColor("#FFFFFF"));
                 charTile.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                final int ic = i;
+                final int jc = j;
 
                 //hgf
                 charTile.setOnTouchListener(new View.OnTouchListener() {
@@ -127,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                             //setting present rows and present columns
 
-                            presentId = fetchId(row, column);
+                            presentId = fetchId(ic, jc);
 
                             if (al.size() == 0) {
                                 TextView backTemp1 = (TextView) findViewById(R.id.undo);
@@ -199,8 +212,9 @@ public class MainActivity extends AppCompatActivity {
                             //Toast.LENGTH_LONG).show();
                             String check = "";
                             for (int x = 0; x < al.size(); x++) {
-                                TextView temp = (TextView) findViewById(fetchId(row, column));
+                                TextView temp = (TextView) findViewById(al.get(x));
                                 check = check + temp.getText();
+                               // check+=al.get(x);
                             }
                             presentWord=check;
                             user_current.setText("Current Word: "+ presentWord);
@@ -229,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
             }
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
         }
+        computer.setText("Max Score :"+gameBoard.getComputerScore()+"");
     }
 
     public int fetchId(int row, int col)
@@ -326,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
 
             String check = "";
             for (int x = 0; x < al.size(); x++) {
-                TextView temp = (TextView) findViewById(fetchId(row, column));
+                TextView temp = (TextView) findViewById(presentId);
                 check = check + temp.getText();
             }
 
@@ -368,10 +383,12 @@ public class MainActivity extends AppCompatActivity {
         //check in the library
 
 
-        if(true) {
+        if(!chodu.contains(presentWord) && gameBoard.isWordOnBoard(presentWord)) {
 
             //saurabh - clear current word
             user_current.setText("Current Word: ");
+            counter+=presentWord.length();
+            userScore.setText("User Score: "+ counter);
 
             chodu.add(presentWord);
             //handling addition of the new words
