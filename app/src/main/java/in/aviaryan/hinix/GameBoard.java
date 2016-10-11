@@ -18,6 +18,10 @@ public class GameBoard {
     private HashSet<String> wordSet = new HashSet<>();
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<String> solutionList;
+
+    public ArrayList<String> computerList = new ArrayList<>();
+    private HashSet<String> computerSet = new HashSet<>();
+
     Random rand = new Random();
     String LOG_TAG = "TestGB";
 
@@ -48,13 +52,21 @@ public class GameBoard {
         int tries = 0, pos;
         String word;
         boolean success;
+        String badWords = "zyxq";
 
-        while (tries < 5){
+        while (tries < 10){
             pos = rand.nextInt(dictSize);
             word = wordList.get(pos);
             success = false;
             // if in-elligible word, throw it
-            if (word.length() == 1 || word.length() > maxWordLen)
+            if (word.length() < 3 || word.length() > maxWordLen)
+                continue;
+            for (i=0; i<badWords.length(); i++){
+                if (word.contains(badWords.charAt(i) + "")){
+                    break;
+                }
+            }
+            if (i != badWords.length()) // premature exit
                 continue;
             // find place for word
             for (i=0; i<n; i++) {
@@ -99,7 +111,7 @@ public class GameBoard {
     }
 
     /*
-     * Try word fill
+     * Try word filling in the board
      */
     public boolean fitWord(String s, int x, int y, HashSet<String> visited, ArrayList<String> order){
         int i, j;
@@ -144,7 +156,32 @@ public class GameBoard {
      * finds all the words in the grid
      */
     public void findWords(){
+        computerList.clear();
+        computerSet.clear();
+        for (int i=0; i<rowCount; i++)
+            for (int j=0; j<colCount; j++){
+                ArrayList <String> order = new ArrayList<>();
+                findWordsUtil(i, j, "" + chars[i][j], new HashSet<String>(), order);
+            }
+    }
 
+    private void findWordsUtil(int x, int y, String str, HashSet<String> visited, ArrayList<String> order){
+        order.add(x + " " + y);
+        visited.add(x + " " + y);
+        if (isWord(str) && str.length() > 2 && !computerSet.contains(str)) {
+            computerList.add(str);
+            computerSet.add(str);
+        }
+        int i, j;
+        for (i=x-1; i<=x+1 && i<rowCount; i++) {
+            for (j = y - 1; j <= y + 1 && j < colCount; j++) {
+                if (!possibleXY(i, j))
+                    continue;
+                if (visited.contains(i + " " + j))
+                    continue;
+                findWordsUtil(i, j, str + chars[i][j], visited, order);
+            }
+        }
     }
 
     /*
