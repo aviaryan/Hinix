@@ -62,11 +62,7 @@ public class GameBoard {
         String badWords = "zyxq";
 
         while (tries < 100){
-//            if (success) {
-//                pos = (pos + 1) % dictSize;
-//            } else {
-                pos = rand.nextInt(dictSize);
-//            }
+            pos = rand.nextInt(dictSize);
             word = wordList.get(pos);
             if (addedWords.contains(word)){
                 continue;
@@ -83,8 +79,6 @@ public class GameBoard {
             }
             if (i != badWords.length()) // premature exit
                 continue;
-//            if (pos > 5000 && word.length() == 3) // very weird words (acronyms)
-//                continue;
             // find place for word
             for (i=0; i<n; i++) {
                 for (j=0; j<m; j++){
@@ -230,40 +224,6 @@ public class GameBoard {
      */
     public boolean possibleXY(int x, int y){
         return (x>=0) && (y>=0) && (x<rowCount) && (y<colCount);
-    }
-
-    /*
-     * finds all the words in the grid
-     */
-    public void findWords(){
-        computerList.clear();
-        computerSet.clear();
-        computerSteps.clear();
-        for (int i=0; i<rowCount; i++)
-            for (int j=0; j<colCount; j++){
-                ArrayList <String> order = new ArrayList<>();
-                findWordsUtil(i, j, "" + chars[i][j], new HashSet<String>(), order);
-            }
-    }
-
-    private void findWordsUtil(int x, int y, String str, HashSet<String> visited, ArrayList<String> order){
-        order.add(x + " " + y);
-        visited.add(x + " " + y);
-        if (isWord(str) && str.length() > 3 && !computerSet.contains(str)) {
-            computerList.add(str);
-            computerSet.add(str);
-            computerSteps.put(str, order);
-        }
-        int i, j;
-        for (i=x-1; i<=x+1 && i<rowCount; i++) {
-            for (j = y - 1; j <= y + 1 && j < colCount; j++) {
-                if (!possibleXY(i, j))
-                    continue;
-                if (visited.contains(i + " " + j))
-                    continue;
-                findWordsUtil(i, j, str + chars[i][j], new HashSet<String>(visited), new ArrayList<String>(order));
-            }
-        }
     }
 
     public void findWords2(){
