@@ -48,7 +48,7 @@ public class GameBoard {
         ArrayList<String> addedWordsList = new ArrayList<>();
         rowCount = n;
         colCount = m;
-        int maxWordLen = Math.max(n, m), i, j;
+        int maxWordLen = Math.max(n, m) + 1, i, j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
@@ -70,7 +70,7 @@ public class GameBoard {
             success = false;
             shortRun = 0;
             // if in-elligible word, throw it
-            if (word.length() < 5 || word.length() > maxWordLen)
+            if (word.length() < 4 || word.length() > maxWordLen)
                 continue;
             for (i=0; i<badWords.length(); i++){
                 if (word.contains(badWords.charAt(i) + "")){
