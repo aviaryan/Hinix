@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 0; j < NUM_COLS; j++) {
                 // Make TF to hold the details
                 TextView charTile = new TextView(this);
-                charTile.setHeight(50);
-                charTile.setWidth(50);
-                charTile.setPadding(2,2,2,2);
+                charTile.setHeight(200);
+                charTile.setTextSize(20);
+                charTile.setWidth(200);
+                charTile.setPadding(8,8,8,8);
                 charTile.setBackgroundColor(Color.GREEN);
+                charTile.setBackground(getDrawable(R.drawable.my_border));
                 charTile.setId(NUM_ROWS * i + j);
                 charTile.setText("A");
                 tr.addView(charTile);
