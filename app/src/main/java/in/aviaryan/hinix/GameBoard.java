@@ -42,7 +42,7 @@ public class GameBoard {
         chars = new char[n][m];
         rowCount = n;
         colCount = m;
-        int maxWordLen = (n + m), i, j;
+        int maxWordLen = Math.max(n, m) + 1, i, j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
@@ -182,6 +182,15 @@ public class GameBoard {
                 findWordsUtil(i, j, str + chars[i][j], visited, order);
             }
         }
+    }
+
+    public int getComputerScore(){
+        findWords();
+        int score = 0;
+        for (String s: computerList){
+            score += s.length();
+        }
+        return score;
     }
 
     /*
