@@ -1,5 +1,6 @@
 package in.aviaryan.hinix;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
@@ -55,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_main2);
         user_current=(TextView) findViewById(R.id.current_word);
        computer=(TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
@@ -276,6 +279,15 @@ public class MainActivity extends AppCompatActivity {
                 TextView backTemp1 = (TextView)findViewById(R.id.undo);
                 backTemp1.setClickable(true);
             }
+
+            if (al.size()==0){
+                for (int i = 0; i < NUM_ROWS; i++) {
+                    for (int j = 0; j < NUM_COLS; j++) {
+                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
+                        viewRefresh.setClickable(true);
+                    }
+                }
+            }
         }
         else {
 
@@ -363,6 +375,15 @@ public class MainActivity extends AppCompatActivity {
                 backTemp1.setClickable(true);
             }
 
+            if (al.size()==0){
+                for (int i = 0; i < NUM_ROWS; i++) {
+                    for (int j = 0; j < NUM_COLS; j++) {
+                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
+                        viewRefresh.setClickable(true);
+                    }
+                }
+            }
+
         }
 
 
@@ -410,12 +431,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             TextView screen = (TextView)findViewById(R.id.textScreen);
-            tempString = (String)screen.getText() +"***" +temp;
+            tempString = (String)screen.getText() +"\n" +temp;
 
             screen.setText(tempString);
         }
         else
         {
+            int lenUndo = presentWord.length();
+            for (int k = 0; k < lenUndo; k++) {
+                undo();
+            }
+
+            int lenMap = chodu.size();
+            String tempString = "";
+            //appending the string of text view
+
+
+            for (int i = 0; i < NUM_ROWS; i++) {
+                for (int j = 0; j < NUM_COLS; j++) {
+                    TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
+                    viewRefresh.setClickable(true);
+                }
+            }
             Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
                     Toast.LENGTH_LONG).show();
         }
@@ -549,4 +586,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void buttonShow(View view) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                MainActivity.this);
+
+        // set title
+        alertDialogBuilder.setTitle("List of possible words\n\n");
+        String temp= "";
+        for(String s:gameBoard.computerList){
+            temp+=s+"\n";
+        }
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(temp);
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
 }
