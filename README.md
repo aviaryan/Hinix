@@ -14,3 +14,10 @@
 
 + Depth First Search and a custom optmized greedy algorithm for generating the boards.
 + Depth First Traversal for solving the board.
+
+### Team
+
+* [Avi Aryan](https://github.comaviaryan) - Board generation and solution algorithm
+* [Nilesh Chaturvedi](https://github.com/Nilesh4145) - UI (home activity)
+* [Raju Koushik](https://github.com/RajuKoushik) - Algorithm and logic for Gameboard word selection
+* [Saurabh Jain](https://github.com/saurabhjn76) - Gameplay UI + supporting logic
