@@ -17,7 +17,7 @@
 
 ### Team
 
-* [Avi Aryan](https://github.comaviaryan) - Board generation and solution algorithm
+* [Avi Aryan](https://github.com/aviaryan) - Board generation and solution algorithm
 * [Nilesh Chaturvedi](https://github.com/Nilesh4145) - UI (home activity)
 * [Raju Koushik](https://github.com/RajuKoushik) - Algorithm and logic for Gameboard word selection
 * [Saurabh Jain](https://github.com/saurabhjn76) - Gameplay UI + supporting logic
