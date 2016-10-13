@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
-        float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
-        float tileHeight = tableHeightDP / (NUM_ROWS + 2);
-        float tileWidth = tableWidthDP / (NUM_COLS + 2);
+        float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext()) - 80;
+        float tileHeight = tableHeightDP / (NUM_ROWS);
+        float tileWidth = tableWidthDP / (NUM_COLS);
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             // Make TR
             final TableRow tr = new TableRow(this);
             tr.setId(100 + i);
-            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             for (int j = 0; j < NUM_COLS; j++) {
                 // Make TV to hold the details
                 final TextView charTile = new TextView(this);
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 tr.addView(charTile);
 
             }
-            tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            tableLayout.addView(tr, new LayoutParams(LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
         }
         computer.setText("Maximal Score: "+gameBoard.getComputerScore()+"");
     }
