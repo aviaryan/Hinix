@@ -1,5 +1,7 @@
 # Hinix
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/16ed87cf73834773abb8d331d0ac9a8f)](https://www.codacy.com/app/aviaryan/Hinix)
+
 A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
 
 **Won first prize in Hackathon** :tada: :fireworks: :champagne: 
