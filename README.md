@@ -6,9 +6,9 @@ A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle ga
 
 ## Screenshots
 
-| [Imgur](http://i.imgur.com/BwP0Q8K.png) | [Imgur](http://i.imgur.com/6xZkGKU.png) | [Imgur](http://i.imgur.com/FyOCQaH.png) |
+| ![](http://i.imgur.com/BwP0Q8K.png) | ![](http://i.imgur.com/6xZkGKU.png) | ![](http://i.imgur.com/FyOCQaH.png) |
 |-------------------------------------|-------------------------------------|-------------------------------------|
-| [Imgur](http://i.imgur.com/4kNEvQg.png) | [Imgur](http://i.imgur.com/OGntwc1.png) | [Imgur](http://i.imgur.com/SN60kVY.png)|
+| ![](http://i.imgur.com/4kNEvQg.png) | ![](http://i.imgur.com/OGntwc1.png) | ![](http://i.imgur.com/SN60kVY.png)|
 
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
