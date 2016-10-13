@@ -7,7 +7,7 @@
 + You can move up, down, left, right, and diagonally to make a word.
 + Minimum word size is 4.
 + Target is to make every word possible from the grid.
-+ You are given some initial points at the starting of each game and these points keep decreasing by the differnce of the no. of words you made and total no. of words possible.
++ You are given some initial points at the starting of each game and these points keep decreasing by the difference of the no. of words you made and total no. of words possible.
 + The game continues till you exhaust all the points.
 
 ## Concept Used:
