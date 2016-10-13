@@ -68,11 +68,9 @@ public class startScreen extends AppCompatActivity {
 
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("1. You are supposed to make as many words as you can from the give set of letters in the grid.\n" +
-                                "There is a maximum no. of words possible. Your goal is to make that many words.\n" +
-                                "2.A fixed no. of points you get in each game. These points gets deducted based on the difference on the no. of possible words and your score.\n" +
-                                "The game ends as soon as these points get over.\n" +
-                                "Lastly you can challenge the game to show you all the possible words.\n\n");
+                        .setMessage("1. You are supposed to make as many words as you can from the given set of letters in the grid.\n" +
+                                "2.If the submitted word is a valid one then it it added to the list and the score would be updated."+
+                                "3.Lastly you can challenge the game to show you all the possible words.\n\n");
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
