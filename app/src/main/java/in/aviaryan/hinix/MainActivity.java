@@ -1,6 +1,5 @@
 package in.aviaryan.hinix;
 
-import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -10,17 +9,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,16 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import static java.security.AccessController.getContext;
 import android.content.res.AssetManager;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     Set<String> uniqueWordList = new HashSet<String>();
     private String currentWord = "";
-    ArrayList<String> cordsPassed = new ArrayList<>();
+    ArrayList<String> coordsPassed = new ArrayList<>();
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
@@ -164,20 +153,20 @@ public class MainActivity extends AppCompatActivity {
         int x = id / NUM_ROWS;
         int y = id % NUM_ROWS;
         String str = x + " " + y;
-        if (cordsPassed.contains(str)){
+        if (coordsPassed.contains(str)){
             // if already touched do nothing
             return;
         } else {
             // get last tile
             boolean condition;
-            if (cordsPassed.size() > 0) {
-                int[] ids = coordsFromStr(cordsPassed.get(cordsPassed.size() - 1));
+            if (coordsPassed.size() > 0) {
+                int[] ids = coordsFromStr(coordsPassed.get(coordsPassed.size() - 1));
                 condition = (Math.abs(ids[0] - x) <= 1) && (Math.abs(ids[1] - y) <= 1);
             } else {
                 condition = true;
             }
             if (condition){
-                cordsPassed.add(str);
+                coordsPassed.add(str);
                 currentWord += tv.getText();
                 tv.setBackground(getDrawable(R.drawable.new_border));
                 user_current.setText(currentWord);
@@ -193,9 +182,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickBack(View view) {
-        if (cordsPassed.size() > 0){
-            int [] ids = coordsFromStr( cordsPassed.get(cordsPassed.size()-1) );
-            cordsPassed.remove(cordsPassed.size()-1);
+        if (coordsPassed.size() > 0){
+            int [] ids = coordsFromStr( coordsPassed.get(coordsPassed.size()-1) );
+            coordsPassed.remove(coordsPassed.size()-1);
             currentWord = currentWord.substring(0, currentWord.length()-1);
             TextView tv = (TextView) findViewById(fetchId(ids[0], ids[1]));
             tv.setBackground(getDrawable(R.drawable.my_border));
@@ -241,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             screen.setText(tempString);
             // reset vars
             currentWord = "";
-            cordsPassed.clear();
+            coordsPassed.clear();
         } else {
             if (uniqueWordList.contains(currentWord)) {
                 Toast.makeText(getApplicationContext(), " Same Word Again!  ",
@@ -254,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 // reset vars
                 currentWord = "";
-                cordsPassed.clear();
+                coordsPassed.clear();
             }
         }
     }
