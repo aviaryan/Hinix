@@ -591,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this);
 
         // set title
-        alertDialogBuilder.setTitle("List of possible words\n\n");
+        alertDialogBuilder.setTitle("List of possible words (" + gameBoard.computerList.size() + ")\n\n");
         String temp= "";
         for(String s:gameBoard.computerList){
             temp+=s+"\n";
