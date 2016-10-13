@@ -23,7 +23,7 @@ A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle ga
 + Depth First Search and a custom optmized greedy algorithm for generating the boards.
 + Depth First Traversal for solving the board.
 
-### Team
+### Team Members (with contribution in Hackathon)
 
 * [Avi Aryan](https://github.com/aviaryan) - Board generation and solution algorithm
 * [Nilesh Chaturvedi](https://github.com/Nilesh4145) - UI (home activity)
