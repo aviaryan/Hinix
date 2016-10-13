@@ -32,21 +32,21 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-    GameBoard gameBoard;
+    private GameBoard gameBoard;
 
     private TableLayout tableLayout;
-    Set<String> uniqueWordList = new HashSet<String>();
+    private Set<String> uniqueWordList = new HashSet<String>();
     private String currentWord = "";
-    ArrayList<String> coordsPassed = new ArrayList<>();
+    private ArrayList<String> coordsPassed = new ArrayList<>();
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
-    String LOG_TAG = "log";
+    private String LOG_TAG = "log";
 
     private int NUM_ROWS=8;
     private  int NUM_COLS=8;
     private int fontSize=18;
-    int counter=0;
+    private int counter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonSubmit(View view) {
-        if (currentWord.equals(""))
+        if ("".equals(currentWord))
             return;
         if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
             // make ui changes
