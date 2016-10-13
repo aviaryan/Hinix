@@ -2,6 +2,12 @@
 
 A Interesting Word game. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
 
+## Screenshots
+
+| ![](http://imgur.com/a/yswZL) | ![](http://imgur.com/a/BGhuR) | ![](http://imgur.com/a/6a0Hb) |
+|-------------------------------|-------------------------------|-------------------------------|
+| ![](http://imgur.com/a/QkQxD) | ![](http://imgur.com/a/HIOaU) | ![](http://imgur.com/a/KBQIM) |
+
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
 + You can move up, down, left, right, and diagonally to make a word.
