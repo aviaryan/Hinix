@@ -1,6 +1,6 @@
 # Hinix
 
-### An Interesting Word game.
+A Interesting Word game. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
 
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
