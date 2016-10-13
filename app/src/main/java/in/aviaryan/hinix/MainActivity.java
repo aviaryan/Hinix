@@ -42,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
     private TableLayout tableLayout;
     int presentId;
-    Set<String> chodu = new HashSet<String>();
+    Set<String> uniqueWordList = new HashSet<String>();
     Map<Integer, String> myMap = new HashMap<Integer, String>();
     final ArrayList<Integer> al=new ArrayList<Integer>();
     String presentWord;
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
+    String LOG_TAG = "log";
 
     private int NUM_ROWS=8;
     private  int NUM_COLS=8;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         initBoard();
-        Log.e("ASd", "init done");
+        Log.e(LOG_TAG, "init done");
         gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
@@ -130,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
-
-
                             // Do what you want
                             Calendar c = Calendar.getInstance();
                             int currentMinutes = c.get(Calendar.MINUTE);
@@ -142,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
                             int column = id % NUM_ROWS;
 
                             //setting present rows and present columns
-
                             presentId = fetchId(ic, jc);
-
                             if (al.size() == 0) {
                                 TextView backTemp1 = (TextView) findViewById(R.id.undo);
                                 backTemp1.setClickable(false);
@@ -153,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
                                 TextView backTemp1 = (TextView) findViewById(R.id.undo);
                                 backTemp1.setClickable(true);
                             }
-
                             charTile.setBackground(getDrawable(R.drawable.new_border));
                             //disabling all tiles
                             for (int j = 0; j < NUM_ROWS * NUM_COLS; j++) {
@@ -161,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 temp.setClickable(false);
                             }
-
-
                             //get adjacent ids
                             if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
                                 TextView temp = (TextView) findViewById(fetchId(row - 1, column - 1));
@@ -206,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 temp.setClickable(true);
                             }
-
-
                             //updating array list with ids of tiles
                             al.add(fetchId(row, column));
                             int alLength = al.size();
@@ -221,9 +213,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             presentWord=check;
                             user_current.setText("Current Word: "+ presentWord);
-
-                            //Toast.makeText(getApplicationContext(), " row= " + check,
-                                   // Toast.LENGTH_LONG).show();
 
                             return true;
                         }
@@ -305,8 +294,6 @@ public class MainActivity extends AppCompatActivity {
 
                 temp.setClickable(false);
             }
-
-
             //get adjacent ids
             if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
                 TextView temp = (TextView) findViewById(fetchId(row - 1, column - 1));
@@ -402,16 +389,14 @@ public class MainActivity extends AppCompatActivity {
     public void buttonSubmit(View view) {
 
         //check in the library
-
-
-        if(!chodu.contains(presentWord) && gameBoard.isWordOnBoard(presentWord)) {
+        if(!uniqueWordList.contains(presentWord) && gameBoard.isWordOnBoard(presentWord)) {
 
             //saurabh - clear current word
             user_current.setText("Current Word: ");
             counter+=presentWord.length();
             userScore.setText("User Score: "+ counter);
 
-            chodu.add(presentWord);
+            uniqueWordList.add(presentWord);
             //handling addition of the new words
             String temp = presentWord;
             int lenUndo = presentWord.length();
@@ -419,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
                 undo();
             }
 
-            int lenMap = chodu.size();
+            int lenMap = uniqueWordList.size();
             String tempString = "";
             //appending the string of text view
 
@@ -436,8 +421,8 @@ public class MainActivity extends AppCompatActivity {
             screen.setText(tempString);
         }
         else {
-            if (chodu.contains(presentWord)) {
-                Toast.makeText(getApplicationContext(), " Same Word Again!!",
+            if (uniqueWordList.contains(presentWord)) {
+                Toast.makeText(getApplicationContext(), " Same Word Again!  ",
                         Toast.LENGTH_LONG).show();
             } else {
 
@@ -446,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
                     undo();
                 }
 
-                int lenMap = chodu.size();
+                int lenMap = uniqueWordList.size();
                 String tempString = "";
                 //appending the string of text view
 
@@ -457,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                         viewRefresh.setClickable(true);
                     }
                 }
-                Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
+                Toast.makeText(getApplicationContext(), " Wrong Word. Please try for a new word. !!",
                         Toast.LENGTH_LONG).show();
             }
         }
@@ -494,20 +479,15 @@ public class MainActivity extends AppCompatActivity {
         else {
 
             int targetId = al.get(lenAL - 2);
-
-
             TextView temp1 = (TextView) findViewById(targetId);
             int row = targetId / NUM_ROWS;
             int column = targetId % NUM_ROWS;
-
-
             //disabling all tiles
             for (int j = 0; j < NUM_ROWS * NUM_COLS; j++) {
                 TextView temp = (TextView) findViewById(j);
 
                 temp.setClickable(false);
             }
-
 
             //get adjacent ids
             if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
@@ -560,8 +540,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             presentId = al.get(al.size() - 1);
-
-/*
+            /*
             Toast.makeText(getApplicationContext(), " row= " + check,
                     Toast.LENGTH_LONG).show();*/
 
