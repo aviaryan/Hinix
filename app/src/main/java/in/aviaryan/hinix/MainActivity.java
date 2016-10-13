@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                             presentId = fetchId(ic, jc);
                             if (al.size() == 0) {
                                 TextView backTemp1 = (TextView) findViewById(R.id.undo);
-                                backTemp1.setClickable(false);
+                                backTemp1.setClickable(true);
                             }
                             if (al.size() != 0) {
                                 TextView backTemp1 = (TextView) findViewById(R.id.undo);
@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
             if(al.size() == 0)
             {
                 TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+                backTemp1.setClickable(true);
             }
             if(al.size() != 0)
             {
@@ -547,7 +547,7 @@ public class MainActivity extends AppCompatActivity {
             if(al.size() == 0)
             {
                 TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+                backTemp1.setClickable(true);
             }
             if(al.size() != 0)
             {
