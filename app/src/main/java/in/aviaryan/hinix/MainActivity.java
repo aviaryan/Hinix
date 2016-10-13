@@ -131,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
+
+
+
+
                             // Do what you want
                             Calendar c = Calendar.getInstance();
                             int currentMinutes = c.get(Calendar.MINUTE);
@@ -213,6 +217,18 @@ public class MainActivity extends AppCompatActivity {
                             }
                             presentWord=check;
                             user_current.setText("Current Word: "+ presentWord);
+
+                            //Disabling already selected tiles in the array list which are already clicked
+                            int temp_al_length = al.size();
+                            Log.e(LOG_TAG,al.size()+"");
+
+                            for(int ii = 0;ii<temp_al_length;ii++)
+                            {
+                                TextView temp = (TextView) findViewById(al.get(ii));
+
+                                temp.setClickable(false);
+                            }
+
 
                             return true;
                         }
@@ -340,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
             String check = "";
             for (int x = 0; x < al.size(); x++) {
-                TextView temp = (TextView) findViewById(presentId);
+                TextView temp = (TextView) findViewById(al.get(x));
                 check = check + temp.getText();
             }
 
