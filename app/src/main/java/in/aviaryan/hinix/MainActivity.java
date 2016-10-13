@@ -1,5 +1,6 @@
 package in.aviaryan.hinix;
 
+import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -58,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         user_current=(TextView) findViewById(R.id.current_word);
         computer=(TextView) findViewById(R.id.max);
@@ -407,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
             //saurabh - clear current word
             user_current.setText("");
             counter+=presentWord.length();
-            userScore.setText(counter);
+            userScore.setText(""+counter);
 
             uniqueWordList.add(presentWord);
             //handling addition of the new words

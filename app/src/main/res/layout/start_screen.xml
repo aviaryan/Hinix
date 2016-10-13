@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4885ed">
+    android:background="#4885ed"
+    android:paddingTop="70dp">
 
     <Button
         android:id="@+id/play"
@@ -71,27 +72,27 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo"/>
 
-    <LinearLayout
-        android:id="@+id/score"
-        android:layout_below="@id/instr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:paddingLeft="70dp">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/score"-->
+        <!--android:layout_below="@id/instr"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingLeft="70dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="High Score: "
-            android:textSize="36dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50"
-            android:textSize="36dp"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="High Score: "-->
+            <!--android:textSize="36dp"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="50"-->
+            <!--android:textSize="36dp"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
