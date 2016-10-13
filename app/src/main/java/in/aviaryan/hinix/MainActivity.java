@@ -9,22 +9,20 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import java.io.IOException;
+import java.io.InputStream;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.res.AssetManager;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -32,10 +30,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static java.security.AccessController.getContext;
-import android.content.res.AssetManager;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     GameBoard gameBoard;
@@ -89,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
         float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
-        float tileHeight = tableHeightDP / (NUM_ROWS + 2);
-        float tileWidth = tableWidthDP / (NUM_COLS + 2);
+        float tileHeight = tableHeightDP / (NUM_ROWS + 0.5f);
+        float tileWidth = tableWidthDP / (NUM_COLS + 1);
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
@@ -107,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             // Make TR
             final TableRow tr = new TableRow(this);
             tr.setId(100 + i);
-            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
             for (int j = 0; j < NUM_COLS; j++) {
                 // Make TV to hold the details
                 final TextView charTile = new TextView(this);
