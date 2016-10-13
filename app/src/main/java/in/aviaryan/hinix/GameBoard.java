@@ -6,9 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +30,7 @@ public class GameBoard {
     public GameBoard(InputStream wordListStream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(wordListStream));
         String line;
-        while((line = in.readLine()) != null){
+        while((line = in.readLine()) != null) {
             String word = line.trim();
             wordSet.add(word);
             wordList.add(word);
@@ -292,7 +290,7 @@ public class GameBoard {
     /*
      * true if string can be formed on board
      */
-    boolean isWordOnBoard(String word){
+    public boolean isWordOnBoard(String word){
         return computerSet.contains(word);
     }
 

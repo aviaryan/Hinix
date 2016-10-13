@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:elevation="10dp"
-        android:text="PLAY!" />
+        android:text="@string/play_button" />
 
     <Button
         android:id="@+id/instr"
@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button"
         android:elevation="10dp"
-        android:text="INSTRUCTIONS" />
+        android:text="@string/instruction_button" />
 
     <RadioGroup
         android:id="@+id/radiogrp"
@@ -42,7 +42,7 @@
             android:layout_marginRight="5dp"
             android:buttonTint="#ffffff"
             android:checked="true"
-            android:text="Easy"
+            android:text="@string/easy_radiobutton"
             android:textColor="#EEEEEE" />
 
         <RadioButton
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#ffffff"
-            android:text="Moderate"
+            android:text="@string/moderate_radiobutton"
             android:textColor="#EEEEEE" />
 
         <RadioButton
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#ffffff"
-            android:text="Hard"
+            android:text="@string/hard_radiobutton"
             android:textColor="#EEEEEE" />
     </RadioGroup>
 
@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="High Score: "
+            android:text="@string/score_textview"
             android:textSize="36dp"/>
         <TextView
             android:layout_width="wrap_content"

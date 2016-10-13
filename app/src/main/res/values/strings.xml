@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Hinix</string>
+
+    <!-- start screen -->
+    <string name="play_button">Play!</string>
+    <string name="instruction_button">Instructions</string>
+    <string name="easy_radiobutton">Easy</string>
+    <string name="moderate_radiobutton">Moderate</string>
+    <string name="hard_radiobutton">Hard</string>
+    <string name="score_textview">High Score: </string>
+    <string name="instructions">1. You are supposed to make as many words as you can from the given set of letters in the grid.
+        There is a maximum number of words possible. Your goal is to make as many as possible.
+        2. You get a fixed number of points in each game. Those points get deducted based on the difference of the number of possible words and your score.
+        The game ends as soon as these points get over.
+        Lastly you can challenge the game to show you all the possible words.</string>
+
+    <!-- main screen -->
+    <string name="current_score">Current Score:</string>
+    <string name="maximal_score">Maximal Score:</string>
+    <string name="current_word">Current Word:</string>
+    <string name="undo_button">Undo</string>
+    <string name="submit_button">Submit</string>
+    <string name="show_words_button">Words</string>
 </resources>
