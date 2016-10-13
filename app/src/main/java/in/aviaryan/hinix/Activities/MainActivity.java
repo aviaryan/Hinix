@@ -1,4 +1,4 @@
-package in.aviaryan.hinix;
+package in.aviaryan.hinix.Activities;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,16 +9,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -32,10 +28,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static java.security.AccessController.getContext;
 import android.content.res.AssetManager;
 import java.io.IOException;
 import java.io.InputStream;
+
+import in.aviaryan.hinix.GameBoard;
+import in.aviaryan.hinix.R;
 
 public class MainActivity extends AppCompatActivity {
     GameBoard gameBoard;
@@ -51,18 +49,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView userScore;
     String LOG_TAG = "log";
 
-    private int NUM_ROWS=8;
-    private  int NUM_COLS=8;
-    private int fontSize=18;
-    int counter=0;
+    private int NUM_ROWS = 8;
+    private  int NUM_COLS = 8;
+    private int fontSize = 18;
+    int counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main2);
-        user_current=(TextView) findViewById(R.id.current_word);
-        computer=(TextView) findViewById(R.id.max);
-        userScore=(TextView) findViewById(R.id.current);
+        user_current = (TextView) findViewById(R.id.current_word);
+        computer = (TextView) findViewById(R.id.maximal);
+        userScore = (TextView) findViewById(R.id.current);
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
         initBoard();
         Log.e(LOG_TAG, "init done");
-        gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
+        gameBoard.makeBoard(NUM_ROWS, NUM_COLS);
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                                 // check+=al.get(x);
                             }
                             presentWord=check;
-                            user_current.setText("Current Word: "+ presentWord);
+                            user_current.setText("Current Word: " + presentWord);
 
                             //Disabling already selected tiles in the array list which are already clicked
                             int temp_al_length = al.size();
@@ -248,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
             }
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
         }
-        computer.setText("Max Score :"+gameBoard.getComputerScore()+"");
+        computer.setText("Maximal Score: "+gameBoard.getComputerScore()+"");
     }
 
     public int fetchId(int row, int col)
@@ -271,15 +270,13 @@ public class MainActivity extends AppCompatActivity {
         {
             if(al.size() == 0)
             {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+                backTemp.setClickable(false);
                 presentWord="";
-                user_current.setText("Current Word: "+ presentWord);
+                user_current.setText("Current Word: " + presentWord);
             }
             if(al.size() != 0)
             {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
+                backTemp.setClickable(true);
             }
 
             if (al.size()==0){
@@ -360,19 +357,15 @@ public class MainActivity extends AppCompatActivity {
             presentId = al.get(al.size() - 1);
 
             presentWord=check;
-            user_current.setText("Current Word: "+ presentWord);
+            user_current.setText("Current Word: " + presentWord);
             /*Toast.makeText(getApplicationContext(), " row= " + check,
                     Toast.LENGTH_LONG).show();*/
 
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+            if(al.size() == 0) {
+                backTemp.setClickable(false);
             }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
+            if(al.size() != 0) {
+                backTemp.setClickable(true);
             }
 
             if (al.size()==0){
@@ -407,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
             //saurabh - clear current word
             user_current.setText("Current Word: ");
             counter+=presentWord.length();
-            userScore.setText("User Score: "+ counter);
+            userScore.setText("Current Score: " + counter);
 
             uniqueWordList.add(presentWord);
             //handling addition of the new words
@@ -480,13 +473,11 @@ public class MainActivity extends AppCompatActivity {
         {
             if(al.size() == 0)
             {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+                backTemp.setClickable(false);
             }
             if(al.size() != 0)
             {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
+                backTemp.setClickable(true);
             }
         }
         else {
@@ -557,17 +548,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), " row= " + check,
                     Toast.LENGTH_LONG).show();*/
 
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
+            if(al.size() == 0) {
+                backTemp.setClickable(false);
             }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
+            if(al.size() != 0) {
+                backTemp.setClickable(true);
             }
-
         }
     }
 
