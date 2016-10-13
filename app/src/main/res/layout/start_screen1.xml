@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4885ed">
+    android:background="@drawable/backimage">
 
     <Button
         android:id="@+id/play"
@@ -12,20 +12,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button"
+        android:background="@drawable/ripples_buttons"
         android:elevation="10dp"
-        android:text="PLAY!" />
+        android:text="PLAY!"
+        android:textColor="#f01a6e23"
+        android:textSize="80dp" />
 
     <Button
         android:id="@+id/instr"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/play"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button"
+        android:background="@drawable/ripples_buttons"
         android:elevation="10dp"
-        android:text="INSTRUCTIONS" />
+        android:text="INSTRUCTIONS"
+        android:textColor="#f01a6e23"
+        android:textSize="30dp" />
 
     <RadioGroup
         android:id="@+id/radiogrp"
@@ -43,7 +47,7 @@
             android:buttonTint="#ffffff"
             android:checked="true"
             android:text="Easy"
-            android:textColor="#EEEEEE" />
+            android:textColor="#1eae50"  />
 
         <RadioButton
             android:id="@+id/moderate"
@@ -51,7 +55,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="#ffffff"
             android:text="Moderate"
-            android:textColor="#EEEEEE" />
+            android:textColor="#1eae50" />
 
         <RadioButton
             android:id="@+id/hard"
@@ -59,7 +63,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="#ffffff"
             android:text="Hard"
-            android:textColor="#EEEEEE" />
+            android:textColor="#1eae50" />
     </RadioGroup>
 
     <ImageView
@@ -69,28 +73,37 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo" />
 
     <LinearLayout
         android:id="@+id/score"
-        android:layout_below="@id/instr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:paddingLeft="70dp">
+        android:paddingLeft="70dp"
+        android:layout_below="@+id/instr"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="High Score: "
-            android:textSize="36dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50"
-            android:textSize="36dp"/>
+
+            <TextView
+                android:background="#790e9676"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High Score: "
+                android:textColor="#201DC4"
+                android:textSize="36dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:background="#790e9676"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textColor="#201DC4"
+                android:textSize="36dp"
+                android:textStyle="bold" />
+
 
     </LinearLayout>
 
