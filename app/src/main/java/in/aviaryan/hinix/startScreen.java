@@ -1,5 +1,6 @@
 package in.aviaryan.hinix;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +17,7 @@ import static android.R.attr.value;
  * Created by nilesh on 11/10/16.
  */
 
-public class startScreen extends AppCompatActivity {
+public class startScreen extends AppCompatActivity{
 
     private Button play, instruction;
     private RadioGroup rg;
@@ -25,7 +26,7 @@ public class startScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_screen1);
+        setContentView(R.layout.start_screen);
 
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {

@@ -20,7 +20,8 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".startScreen">
+            android:parentActivityName=".startScreen"
+            android:theme="@style/PlayTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startScreen" />
