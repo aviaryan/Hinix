@@ -53,7 +53,7 @@ public class startScreen extends AppCompatActivity {
                     selectedId=2;
                 else
                 selectedId=3;
-                Toast.makeText(getBaseContext(), selectedId+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), selectedId+"", Toast.LENGTH_SHORT).show();
             }
         });
         instruction= (Button) findViewById(R.id.instr);

@@ -453,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
                     viewRefresh.setClickable(true);
                 }
             }
-            Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
+            Toast.makeText(getApplicationContext(), " Wrong Word !!",
                     Toast.LENGTH_LONG).show();
         }
 
@@ -557,8 +557,8 @@ public class MainActivity extends AppCompatActivity {
             presentId = al.get(al.size() - 1);
 
 
-            Toast.makeText(getApplicationContext(), " row= " + check,
-                    Toast.LENGTH_LONG).show();
+          /*  Toast.makeText(getApplicationContext(), " row= " + check,
+                    Toast.LENGTH_LONG).show();*/
 
             if(al.size() == 0)
             {
