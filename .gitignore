@@ -35,3 +35,10 @@ captures/
 
 # workspace.xml
 .idea/workspace.xml
+
+#idea files
+.idea/*
+
+
+app/app.iml
+Hinix.iml
