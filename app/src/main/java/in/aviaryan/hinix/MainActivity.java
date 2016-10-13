@@ -131,10 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
-
-
-
-
+                            
                             // Do what you want
                             Calendar c = Calendar.getInstance();
                             int currentMinutes = c.get(Calendar.MINUTE);
