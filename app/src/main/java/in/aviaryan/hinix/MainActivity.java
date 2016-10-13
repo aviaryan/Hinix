@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 tr.addView(charTile);
             }
             // table row ends
-            tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
         }
         // loop ends
         computer.setText(gameBoard.getComputerScore()+"");
