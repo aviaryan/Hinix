@@ -1,41 +1,34 @@
 package in.aviaryan.hinix;
 
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import static java.security.AccessController.getContext;
-import android.content.res.AssetManager;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     GameBoard gameBoard;
@@ -82,17 +75,18 @@ public class MainActivity extends AppCompatActivity {
         }
         initBoard();
         Log.e("ASd", "init done");
-        gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
+        gameBoard.makeBoard(NUM_ROWS, NUM_COLS);
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
         float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
-        float tileHeight = tableHeightDP / (NUM_ROWS + 2);
-        float tileWidth = tableWidthDP / (NUM_COLS + 2);
+        float tileHeight = tableHeightDP / (NUM_ROWS + 0.5f);
+        float tileWidth = tableWidthDP / (NUM_COLS + 1);
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
+        Log.e("tileWidth", tileHeight + "");
 
         if (NUM_ROWS <= 3 && NUM_COLS <= 3)
             fontSize = 24;
@@ -106,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             // Make TR
             final TableRow tr = new TableRow(this);
             tr.setId(100 + i);
-            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(GridLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
             for (int j = 0; j < NUM_COLS; j++) {
                 // Make TV to hold the details
                 final TextView charTile = new TextView(this);
@@ -388,17 +382,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public float dpToPixel(float dps){
         final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
         float pixels = (int) (dps * scale + 0.5f);
         return pixels;
     }
+
     public static float convertPixelsToDp(float px, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
+
     public void buttonSubmit(View view) {
 
         //check in the library
