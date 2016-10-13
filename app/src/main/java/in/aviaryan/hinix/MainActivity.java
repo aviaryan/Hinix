@@ -36,6 +36,9 @@ import java.util.Set;
 
 import static java.security.AccessController.getContext;
 import android.content.res.AssetManager;
+
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -43,11 +46,9 @@ public class MainActivity extends AppCompatActivity {
     GameBoard gameBoard;
 
     private TableLayout tableLayout;
-    int presentId;
     Set<String> uniqueWordList = new HashSet<String>();
-    Map<Integer, String> myMap = new HashMap<Integer, String>();
-    final ArrayList<Integer> al=new ArrayList<Integer>();
-    String presentWord;
+    private String currentWord = "";
+    ArrayList<String> cordsPassed = new ArrayList<>();
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private  int NUM_COLS=8;
     private int fontSize=18;
     int counter=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,271 +126,83 @@ public class MainActivity extends AppCompatActivity {
                 charTile.setText(gameBoard.chars[i][j]+"");
                 charTile.setTextColor(Color.parseColor("#FFFFFF"));
                 charTile.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-                final int ic = i;
-                final int jc = j;
 
-                //hgf
+                // text view listeners
                 charTile.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
-                            
-                            // Do what you want
-                            Calendar c = Calendar.getInstance();
-                            int currentMinutes = c.get(Calendar.MINUTE);
-                            int seconds = c.get(Calendar.SECOND);
-                            myMap.put(charTile.getId(), "" + currentMinutes + "");
-                            int id = charTile.getId();
-                            int row = id / NUM_ROWS;
-                            int column = id % NUM_ROWS;
-
-                            //setting present rows and present columns
-                            presentId = fetchId(ic, jc);
-                            if (al.size() == 0) {
-                                TextView backTemp1 = (TextView) findViewById(R.id.undo);
-                                backTemp1.setClickable(false);
-                            }
-                            if (al.size() != 0) {
-                                TextView backTemp1 = (TextView) findViewById(R.id.undo);
-                                backTemp1.setClickable(true);
-                            }
-                            charTile.setBackground(getDrawable(R.drawable.new_border));
-                            //disabling all tiles
-                            for (int j = 0; j < NUM_ROWS * NUM_COLS; j++) {
-                                TextView temp = (TextView) findViewById(j);
-
-                                temp.setClickable(false);
-                            }
-                            //get adjacent ids
-                            if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row - 1, column - 1));
-
-
-                                temp.setClickable(true);
-                            }
-                            if (row + 1 >= 0 && column + 1 >= 0 && row + 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row + 1, column + 1));
-
-                                temp.setClickable(true);
-                            }
-                            if (row - 1 >= 0 && column + 1 >= 0 && row - 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row - 1, column + 1));
-
-                                temp.setClickable(true);
-                            }
-                            if (row - 1 >= 0 && column >= 0 && row - 1 < NUM_ROWS && column < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row - 1, column));
-
-                                temp.setClickable(true);
-                            }
-
-                            if (row >= 0 && column - 1 >= 0 && row < NUM_ROWS && column - 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row, column - 1));
-
-                                temp.setClickable(true);
-                            }
-                            if (row >= 0 && column + 1 >= 0 && row < NUM_ROWS && column + 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row, column + 1));
-
-                                temp.setClickable(true);
-                            }
-                            if (row + 1 >= 0 && column >= 0 && row + 1 < NUM_ROWS && column < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row + 1, column));
-
-                                temp.setClickable(true);
-                            }
-                            if (row + 1 >= 0 && column - 1 >= 0 && row + 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                                TextView temp = (TextView) findViewById(fetchId(row + 1, column - 1));
-
-                                temp.setClickable(true);
-                            }
-                            //updating array list with ids of tiles
-                            al.add(fetchId(row, column));
-                            int alLength = al.size();
-                            //Toast.makeText(getApplicationContext(), " row= "+row+ " Coloumn ="+column +"al - "+(alLength-1)+" "+al.get(alLength-1),
-                            //Toast.LENGTH_LONG).show();
-                            String check = "";
-                            for (int x = 0; x < al.size(); x++) {
-                                TextView temp = (TextView) findViewById(al.get(x));
-                                check = check + temp.getText();
-                                // check+=al.get(x);
-                            }
-                            presentWord=check;
-                            user_current.setText(presentWord);
-
-                            //Disabling already selected tiles in the array list which are already clicked
-                            int temp_al_length = al.size();
-                            Log.e(LOG_TAG,al.size()+"");
-
-                            for(int ii = 0;ii<temp_al_length;ii++)
-                            {
-                                TextView temp = (TextView) findViewById(al.get(ii));
-
-                                temp.setClickable(false);
-                            }
-
-
+                            handleTouch((TextView) v);
                             return true;
                         }
                         return false;
                     }
                 });
-                charTile.setOnClickListener(new View.OnClickListener() {
 
+                charTile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Calendar c = Calendar.getInstance();
-                        int seconds = c.get(Calendar.SECOND);
-
+                        // this is needed for onTouch to work
                     }
-
                 });
-                tr.addView(charTile);
 
+                tr.addView(charTile);
             }
+            // table row ends
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
         }
+        // loop ends
         computer.setText(gameBoard.getComputerScore()+"");
     }
 
-    public int fetchId(int row, int col)
-    {
+    public int fetchId(int row, int col) {
         return row*NUM_ROWS + col;
     }
 
-    public void clickBack(View view) {
-        TextView backTemp = (TextView)findViewById(R.id.undo);
-        backTemp.setClickable(true);
-
-        TextView temp2 = (TextView)findViewById(presentId);
-        temp2.setBackground(getDrawable(R.drawable.my_border));
-
-        int lenAL = al.size();
-        al.remove(lenAL-1);
-
-
-        if(lenAL - 2 < 0)
-        {
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
-                presentWord="";
-                user_current.setText(presentWord);
+    private void handleTouch(TextView tv) {
+        int id =tv.getId();
+        int x = id / NUM_ROWS;
+        int y = id % NUM_ROWS;
+        String str = x + " " + y;
+        if (cordsPassed.contains(str)){
+            // if already touched do nothing
+            return;
+        } else {
+            // get last tile
+            boolean condition;
+            if (cordsPassed.size() > 0) {
+                int[] ids = coordsFromStr(cordsPassed.get(cordsPassed.size() - 1));
+                condition = (Math.abs(ids[0] - x) <= 1) && (Math.abs(ids[1] - y) <= 1);
+            } else {
+                condition = true;
             }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
-            }
-
-            if (al.size()==0){
-                for (int i = 0; i < NUM_ROWS; i++) {
-                    for (int j = 0; j < NUM_COLS; j++) {
-                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
-                        viewRefresh.setClickable(true);
-                    }
-                }
+            if (condition){
+                cordsPassed.add(str);
+                currentWord += tv.getText();
+                tv.setBackground(getDrawable(R.drawable.new_border));
+                user_current.setText(currentWord);
             }
         }
-        else {
-
-            int targetId = al.get(lenAL - 2);
-
-
-            TextView temp1 = (TextView) findViewById(targetId);
-            int row = targetId / NUM_ROWS;
-            int column = targetId % NUM_ROWS;
-
-
-            //disabling all tiles
-            for (int j = 0; j < NUM_ROWS * NUM_COLS; j++) {
-                TextView temp = (TextView) findViewById(j);
-
-                temp.setClickable(false);
-            }
-            //get adjacent ids
-            if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column - 1));
-
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column + 1 >= 0 && row + 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row - 1 >= 0 && column + 1 >= 0 && row - 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row - 1 >= 0 && column >= 0 && row - 1 < NUM_ROWS && column < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column));
-
-                temp.setClickable(true);
-            }
-
-            if (row >= 0 && column - 1 >= 0 && row < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row, column - 1));
-
-                temp.setClickable(true);
-            }
-            if (row >= 0 && column + 1 >= 0 && row < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column >= 0 && row + 1 < NUM_ROWS && column < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column));
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column - 1 >= 0 && row + 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column - 1));
-
-                temp.setClickable(true);
-            }
-
-            String check = "";
-            for (int x = 0; x < al.size(); x++) {
-                TextView temp = (TextView) findViewById(al.get(x));
-                check = check + temp.getText();
-            }
-
-            presentId = al.get(al.size() - 1);
-
-            presentWord=check;
-            user_current.setText(presentWord);
-            /*Toast.makeText(getApplicationContext(), " row= " + check,
-                    Toast.LENGTH_LONG).show();*/
-
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
-            }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
-            }
-
-            if (al.size()==0){
-                for (int i = 0; i < NUM_ROWS; i++) {
-                    for (int j = 0; j < NUM_COLS; j++) {
-                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
-                        viewRefresh.setClickable(true);
-                    }
-                }
-            }
-
-        }
-
-
     }
+
+    private int [] coordsFromStr(String s){
+        int [] arr = new int[2];
+        arr[0] = Integer.parseInt(s.split("\\s+")[0]);
+        arr[1] = Integer.parseInt(s.split("\\s+")[1]);
+        return arr;
+    }
+
+    public void clickBack(View view) {
+        if (cordsPassed.size() > 0){
+            int [] ids = coordsFromStr( cordsPassed.get(cordsPassed.size()-1) );
+            cordsPassed.remove(cordsPassed.size()-1);
+            currentWord = currentWord.substring(0, currentWord.length()-1);
+            TextView tv = (TextView) findViewById(fetchId(ids[0], ids[1]));
+            tv.setBackground(getDrawable(R.drawable.my_border));
+            user_current.setText(currentWord);
+        }
+    }
+
     public float dpToPixel(float dps){
         final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
         float pixels = (int) (dps * scale + 0.5f);
@@ -400,175 +214,48 @@ public class MainActivity extends AppCompatActivity {
         float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
-    public void buttonSubmit(View view) {
 
-        //check in the library
-        if(!uniqueWordList.contains(presentWord) && gameBoard.isWordOnBoard(presentWord)) {
-
-            //saurabh - clear current word
-            user_current.setText("");
-            counter+=presentWord.length();
-            userScore.setText(""+counter);
-
-            uniqueWordList.add(presentWord);
-            //handling addition of the new words
-            String temp = presentWord;
-            int lenUndo = presentWord.length();
-            for (int k = 0; k < lenUndo; k++) {
-                undo();
+    private void resetAllTiles(){
+        for (int i = 0; i < NUM_ROWS; i++) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                TextView tv = (TextView) findViewById(fetchId(i, j));
+                tv.setBackground(getDrawable(R.drawable.my_border));
             }
-
-            int lenMap = uniqueWordList.size();
-            String tempString = "";
-            //appending the string of text view
-
-
-            for (int i = 0; i < NUM_ROWS; i++) {
-                for (int j = 0; j < NUM_COLS; j++) {
-                    TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
-                    viewRefresh.setClickable(true);
-                }
-            }
-            TextView screen = (TextView)findViewById(R.id.textScreen);
-            tempString = (String)screen.getText() +"\n" +temp;
-
-            screen.setText(tempString);
         }
-        else {
-            if (uniqueWordList.contains(presentWord)) {
+    }
+
+    public void buttonSubmit(View view) {
+        if (currentWord.equals(""))
+            return;
+        if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
+            // make ui changes
+            user_current.setText("");
+            counter += currentWord.length();
+            userScore.setText("" + counter);
+            uniqueWordList.add(currentWord);
+            // reset all tiles
+            resetAllTiles();
+            // add to log
+            TextView screen = (TextView)findViewById(R.id.textScreen);
+            String tempString = screen.getText() + "\n" + currentWord;
+            screen.setText(tempString);
+            // reset vars
+            currentWord = "";
+            cordsPassed.clear();
+        } else {
+            if (uniqueWordList.contains(currentWord)) {
                 Toast.makeText(getApplicationContext(), " Same Word Again!  ",
                         Toast.LENGTH_LONG).show();
             } else {
-
-                int lenUndo = presentWord.length();
-                for (int k = 0; k < lenUndo; k++) {
-                    undo();
-                }
-
-                int lenMap = uniqueWordList.size();
-                String tempString = "";
-                //appending the string of text view
-
-
-                for (int i = 0; i < NUM_ROWS; i++) {
-                    for (int j = 0; j < NUM_COLS; j++) {
-                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
-                        viewRefresh.setClickable(true);
-                    }
-                }
+                user_current.setText("");
+                // reset all tiles
+                resetAllTiles();
                 Toast.makeText(getApplicationContext(), " Wrong Word. Please try for a new word. !!",
                         Toast.LENGTH_LONG).show();
+                // reset vars
+                currentWord = "";
+                cordsPassed.clear();
             }
-        }
-
-
-
-    }
-
-    public void undo()
-    {
-        TextView backTemp = (TextView)findViewById(R.id.undo);
-        backTemp.setClickable(true);
-
-        TextView temp2 = (TextView)findViewById(presentId);
-        temp2.setBackground(getDrawable(R.drawable.my_border));
-
-        int lenAL = al.size();
-        al.remove(lenAL-1);
-
-
-        if(lenAL - 2 < 0)
-        {
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
-            }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
-            }
-        }
-        else {
-
-            int targetId = al.get(lenAL - 2);
-            TextView temp1 = (TextView) findViewById(targetId);
-            int row = targetId / NUM_ROWS;
-            int column = targetId % NUM_ROWS;
-            //disabling all tiles
-            for (int j = 0; j < NUM_ROWS * NUM_COLS; j++) {
-                TextView temp = (TextView) findViewById(j);
-
-                temp.setClickable(false);
-            }
-
-            //get adjacent ids
-            if (row - 1 >= 0 && column - 1 >= 0 && row - 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column - 1));
-
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column + 1 >= 0 && row + 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row - 1 >= 0 && column + 1 >= 0 && row - 1 < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row - 1 >= 0 && column >= 0 && row - 1 < NUM_ROWS && column < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row - 1, column));
-
-                temp.setClickable(true);
-            }
-
-            if (row >= 0 && column - 1 >= 0 && row < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row, column - 1));
-
-                temp.setClickable(true);
-            }
-            if (row >= 0 && column + 1 >= 0 && row < NUM_ROWS && column + 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row, column + 1));
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column >= 0 && row + 1 < NUM_ROWS && column < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column));
-
-                temp.setClickable(true);
-            }
-            if (row + 1 >= 0 && column - 1 >= 0 && row + 1 < NUM_ROWS && column - 1 < NUM_COLS) {
-                TextView temp = (TextView) findViewById(fetchId(row + 1, column - 1));
-
-                temp.setClickable(true);
-            }
-
-            String check = "";
-            for (int x = 0; x < al.size(); x++) {
-                TextView temp = (TextView) findViewById(fetchId(row, column));
-                check = check + temp.getText();
-            }
-
-            presentId = al.get(al.size() - 1);
-            /*
-            Toast.makeText(getApplicationContext(), " row= " + check,
-                    Toast.LENGTH_LONG).show();*/
-
-            if(al.size() == 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(false);
-            }
-            if(al.size() != 0)
-            {
-                TextView backTemp1 = (TextView)findViewById(R.id.undo);
-                backTemp1.setClickable(true);
-            }
-
         }
     }
 
