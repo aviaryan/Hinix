@@ -435,26 +435,31 @@ public class MainActivity extends AppCompatActivity {
 
             screen.setText(tempString);
         }
-        else
-        {
-            int lenUndo = presentWord.length();
-            for (int k = 0; k < lenUndo; k++) {
-                undo();
-            }
+        else {
+            if (chodu.contains(presentWord)) {
+                Toast.makeText(getApplicationContext(), " Same Word Again!!",
+                        Toast.LENGTH_LONG).show();
+            } else {
 
-            int lenMap = chodu.size();
-            String tempString = "";
-            //appending the string of text view
-
-
-            for (int i = 0; i < NUM_ROWS; i++) {
-                for (int j = 0; j < NUM_COLS; j++) {
-                    TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
-                    viewRefresh.setClickable(true);
+                int lenUndo = presentWord.length();
+                for (int k = 0; k < lenUndo; k++) {
+                    undo();
                 }
+
+                int lenMap = chodu.size();
+                String tempString = "";
+                //appending the string of text view
+
+
+                for (int i = 0; i < NUM_ROWS; i++) {
+                    for (int j = 0; j < NUM_COLS; j++) {
+                        TextView viewRefresh = (TextView) findViewById(fetchId(i, j));
+                        viewRefresh.setClickable(true);
+                    }
+                }
+                Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
+                        Toast.LENGTH_LONG).show();
             }
-            Toast.makeText(getApplicationContext(), " Wrong Word bro !!",
-                    Toast.LENGTH_LONG).show();
         }
 
 
@@ -556,9 +561,9 @@ public class MainActivity extends AppCompatActivity {
 
             presentId = al.get(al.size() - 1);
 
-
+/*
             Toast.makeText(getApplicationContext(), " row= " + check,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG).show();*/
 
             if(al.size() == 0)
             {
