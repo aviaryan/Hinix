@@ -1,6 +1,8 @@
 # Hinix
 
-A Interesting Word game. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
+A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
+
+**Won first prize in Hackathon** :tada: :fireworks: :champagne: 
 
 ## Screenshots
 
