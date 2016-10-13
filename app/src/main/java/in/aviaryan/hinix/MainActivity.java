@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
 
             String check = "";
             for (int x = 0; x < al.size(); x++) {
-                TextView temp = (TextView) findViewById(presentId);
+                TextView temp = (TextView) findViewById(al.get(x));
                 check = check + temp.getText();
             }
 
