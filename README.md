@@ -4,9 +4,9 @@ A Interesting Word game. Inspired from the classic [Boggle game](https://en.wiki
 
 ## Screenshots
 
-| ![](http://imgur.com/a/yswZL) | ![](http://imgur.com/a/BGhuR) | ![](http://imgur.com/a/6a0Hb) |
-|-------------------------------|-------------------------------|-------------------------------|
-| ![](http://imgur.com/a/QkQxD) | ![](http://imgur.com/a/HIOaU) | ![](http://imgur.com/a/KBQIM) |
+| ![](http://i.imgur.com/xmA4t4S.png) | ![](http://i.imgur.com/Hr9U1jP.png) | ![](http://i.imgur.com/OSk0yxN.png) |
+|-------------------------------------|-------------------------------------|-------------------------------------|
+| ![](http://i.imgur.com/RmrnuRG.png) | ![](http://i.imgur.com/HFL0KLr.png) | ![](http://i.imgur.com/9BvsuNf.png) |
 
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
