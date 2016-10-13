@@ -1,6 +1,5 @@
 package in.aviaryan.hinix;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -9,9 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import static android.R.attr.value;
 
 /**
  * Created by nilesh on 11/10/16.
@@ -19,10 +15,14 @@ import static android.R.attr.value;
 
 public class startScreen extends AppCompatActivity{
 
-    private Button play, instruction;
+    private Button play;
+    private Button commandButton;
     private RadioGroup rg;
-    private RadioButton rb1,rb2,rb3;
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
     private  int selectedId=1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,8 @@ public class startScreen extends AppCompatActivity{
                 /*Toast.makeText(getBaseContext(), selectedId+"", Toast.LENGTH_SHORT).show();*/
             }
         });
-        instruction= (Button) findViewById(R.id.instr);
-        instruction.setOnClickListener(new View.OnClickListener() {
+        commandButton = (Button) findViewById(R.id.instr);
+        commandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -82,6 +82,9 @@ public class startScreen extends AppCompatActivity{
 
     }
 
+    /**
+     * this method is yet to be implemented
+     */
     public void level(){
 
     }

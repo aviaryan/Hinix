@@ -6,9 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,7 +15,8 @@ import java.util.Random;
 
 public class GameBoard {
     public char[][] chars;
-    int rowCount, colCount;
+    int rowCount;
+    int colCount;
     private HashSet<String> wordSet = new HashSet<>();
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<String> solutionList;
@@ -26,8 +25,8 @@ public class GameBoard {
     private HashSet<String> computerSet = new HashSet<>();
     private HashMap<String, ArrayList<String>> computerSteps = new HashMap<>();
 
-    Random rand = new Random();
-    String LOG_TAG = "TestGB";
+    private Random rand = new Random();
+    private String LOG_TAG = "TestGB";
 
     public GameBoard(InputStream wordListStream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(wordListStream));
@@ -48,14 +47,17 @@ public class GameBoard {
         ArrayList<String> addedWordsList = new ArrayList<>();
         rowCount = n;
         colCount = m;
-        int maxWordLen = Math.max(n, m) + 1, i, j;
+        int maxWordLen = Math.max(n, m) + 1;
+        int i;
+        int j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
             for (j=0; j<m; j++)
                 chars[i][j] = '\0';
         // add words
-        int tries = 0, pos = 0;
+        int tries = 0;
+        int pos = 0;
         String word;
         boolean success = false;
         int shortRun = 0;
@@ -292,14 +294,14 @@ public class GameBoard {
     /*
      * true if string can be formed on board
      */
-    boolean isWordOnBoard(String word){
+    public boolean isWordOnBoard(String word){
         return computerSet.contains(word);
     }
 
     /*
      * true if string is a word from dictionary
      */
-    boolean isWord(String s){
+    public boolean isWord(String s){
         return wordSet.contains(s);
     }
 }
