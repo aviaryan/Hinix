@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         user_current=(TextView) findViewById(R.id.current_word);
         computer=(TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                                 // check+=al.get(x);
                             }
                             presentWord=check;
-                            user_current.setText("Current Word: "+ presentWord);
+                            user_current.setText(presentWord);
 
                             //Disabling already selected tiles in the array list which are already clicked
                             int temp_al_length = al.size();
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
             }
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
         }
-        computer.setText("Max Score :"+gameBoard.getComputerScore()+"");
+        computer.setText(gameBoard.getComputerScore()+"");
     }
 
     public int fetchId(int row, int col)
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView backTemp1 = (TextView)findViewById(R.id.undo);
                 backTemp1.setClickable(false);
                 presentWord="";
-                user_current.setText("Current Word: "+ presentWord);
+                user_current.setText(presentWord);
             }
             if(al.size() != 0)
             {
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
             presentId = al.get(al.size() - 1);
 
             presentWord=check;
-            user_current.setText("Current Word: "+ presentWord);
+            user_current.setText(presentWord);
             /*Toast.makeText(getApplicationContext(), " row= " + check,
                     Toast.LENGTH_LONG).show();*/
 
@@ -405,9 +405,9 @@ public class MainActivity extends AppCompatActivity {
         if(!uniqueWordList.contains(presentWord) && gameBoard.isWordOnBoard(presentWord)) {
 
             //saurabh - clear current word
-            user_current.setText("Current Word: ");
+            user_current.setText("");
             counter+=presentWord.length();
-            userScore.setText("User Score: "+ counter);
+            userScore.setText(counter);
 
             uniqueWordList.add(presentWord);
             //handling addition of the new words

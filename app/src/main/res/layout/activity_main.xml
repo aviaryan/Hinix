@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,116 +10,153 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="in.aviaryan.hinix.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/topPanel"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/CscorePanel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:background="@drawable/top"
-        android:padding="4dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Score"
-            android:textSize="15sp"
-            android:padding="5dp"
-            android:background="@drawable/col"/>
+            <LinearLayout
+                android:id="@+id/topPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="52"
-            android:paddingLeft="5dp"
-            android:textSize="15sp"/>
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:weightSum="2">
 
-    <LinearLayout
-        android:id="@+id/lifePanel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/CscorePanel"
-        android:orientation="horizontal"
-        android:background="@drawable/top">
+                    <LinearLayout
+                        android:id="@+id/CscorePanel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/top"
+                        android:orientation="horizontal"
+                        android:padding="4dp"
+                        android:paddingBottom="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/life" />
+                        <TextView
+                            android:id="@+id/currentTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/col"
+                            android:padding="5dp"
+                            android:text="Your Score"
+                            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:textSize="15sp"
-            android:text="120" />
-    </LinearLayout>
+                        <TextView
+                            android:id="@+id/current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="52"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/maxPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/lifePanel"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/top"
-        android:padding="4dp">
+                    <LinearLayout
+                        android:id="@+id/maxPanel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/top"
+                        android:orientation="horizontal"
+                        android:padding="4dp"
+                        android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Max Score "
-            android:background="@drawable/col"
-            android:textSize="15sp"
-            android:padding="5dp"/>
+                        <TextView
+                            android:id="@+id/maxTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/col"
+                            android:padding="5dp"
+                            android:text="Max Score "
+                            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="999"
-            android:textSize="15sp"
-            android:paddingLeft="4dp"/>
-    </LinearLayout>
-    </LinearLayout>
+                        <TextView
+                            android:id="@+id/max"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="4dp"
+                            android:text="999"
+                            android:textAlignment="gravity"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/grid"
-        android:layout_width="380dp"
-        android:layout_height="380dp"
-        android:layout_below="@id/topPanel"
-        android:layout_marginTop="20dp"
-        android:foregroundGravity="center"></TableLayout>
+                </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grid"
-        android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/current_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Word"
+                    android:textStyle="bold"
+                    android:textSize="32sp"
+                    android:textColor="#757575"/>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/undo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="clickBack"
-            android:text="Undo"
 
-            />
-    </LinearLayout>
+            <TableLayout
+                android:id="@+id/grid"
+                android:layout_width="380dp"
+                android:layout_height="380dp"
+                android:layout_below="@id/topPanel"
+                android:layout_marginTop="20dp"
+                android:foregroundGravity="center"></TableLayout>
 
+            <LinearLayout
+                android:id="@+id/buttonPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grid"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/undo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="clickBack"
+                    android:text="Undo"
+
+                    />
+
+                <Button
+                    android:id="@+id/buttonSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="buttonSubmit"
+                    android:text="Submit" />
+
+                <Button
+                    android:id="@+id/buttonShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="buttonShow"
+                    android:text="Show Words" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textScreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonPanel"
+                android:layout_weight="1"
+                android:text="" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
