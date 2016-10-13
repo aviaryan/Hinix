@@ -64,14 +64,9 @@ public class StartActivity extends AppCompatActivity {
                 alertDialogBuilder.setTitle(R.string.instruction_button);
 
                 // set dialog message
-<<<<<<< HEAD:app/src/main/java/in/aviaryan/hinix/Activities/StartActivity.java
                 alertDialogBuilder.setMessage(R.string.instructions);
-=======
                 alertDialogBuilder
-                        .setMessage("1. You are supposed to make as many words as you can from the given set of letters in the grid.\n" +
-                                "2. If the submitted word is a valid one then it it added to the list and the score would be updated.\n" +
-                                "3. Lastly you can challenge the game to show you all the possible words.\n\n ");
->>>>>>> aviaryan/neo-reborn:app/src/main/java/in/aviaryan/hinix/startScreen.java
+                        .setMessage(R.string.instructions);
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
