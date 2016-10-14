@@ -30,12 +30,10 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
 
-    private TableLayout tableLayout;
     private Set<String> uniqueWordList = new HashSet<String>();
     private String currentWord = "";
     private ArrayList<String> coordsPassed = new ArrayList<>();
     private TextView user_current;
-    private TextView computer;
     private TextView userScore;
     private String LOG_TAG = "log";
 
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         startScreen.progressDialog.dismiss();
         user_current=(TextView) findViewById(R.id.current_word);
-        computer=(TextView) findViewById(R.id.max);
+        TextView computer = (TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
 
         Intent mIntent = getIntent();
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         initBoard();
         Log.e(LOG_TAG, "init done");
         gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
-        tableLayout = (TableLayout) findViewById(R.id.grid);
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());

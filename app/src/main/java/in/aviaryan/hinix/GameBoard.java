@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 
 
 public class GameBoard {
     public char[][] chars;
-    int rowCount;
-    int colCount;
+    private int rowCount;
+    private int colCount;
+    private int wordPlaceTries;
     private HashSet<String> wordSet = new HashSet<>();
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<String> solutionList;
@@ -39,6 +39,78 @@ public class GameBoard {
         }
     }
 
+    private void clearBoard() {
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < chars[i].length; j++) {
+                chars[i][j] = '\0';
+            }
+        }
+    }
+
+    private boolean findPlaceForWord(String word, HashSet<String> addedWords,
+                                     ArrayList<String> addedWordsList) {
+        int shortRun = 0;
+        int i = 0, j = 0;
+        for (; i < chars.length; i++) {
+            for (; j < chars[i].length; j++){
+                if (shortRun == 0) {
+                    int posArr[] = findSameCharGrid(word.charAt(0));
+                    if (posArr[0] != -1) {
+                        i = posArr[0]; j = posArr[1]; shortRun = 1;
+                    } else {
+                        shortRun = 2;
+                    }
+                }
+                if (chars[i][j] == '\0' || chars[i][j] == word.charAt(0)){
+                    HashSet<String> visited = new HashSet<>();
+                    ArrayList<String> order = new ArrayList<>();
+                    order.add(i + " " + j);
+                    visited.add(i + " " + j);
+                    boolean success = fitWord(word.substring(1), i, j, visited, order);
+                    if (success){
+                        wordPlaceTries = 0;
+                        int count = 0;
+                        addedWords.add(word);
+                        addedWordsList.add(word);
+                        // add word to board
+                        if (solutionList.size() != word.length()){
+                            Log.v(LOG_TAG, word + " " + solutionList.toString());
+                        }
+                        for (String s: solutionList){
+                            int x = Integer.parseInt(s.split("\\s+")[0]);
+                            int y = Integer.parseInt(s.split("\\s+")[1]);
+                            chars[x][y] = word.charAt(count);
+                            count++;
+                        }
+                        return true;
+                    }
+                }
+                if (shortRun == 1){
+                    shortRun = 2; i=0; j=-1;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasBadLetters(String word, String badLetters) {
+        for (int i = 0; i < badLetters.length(); i++){
+            if (word.contains(badLetters.charAt(i) + "")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void fillRestCharsWithRandomLetters() {
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < chars[i].length; j++) {
+                if (chars[i][j] == '\0')
+                    chars[i][j] = (char) (97 + rand.nextInt(26));
+            }
+        }
+    }
+
     /*
      * makes the game board of certain size
      */
@@ -49,92 +121,35 @@ public class GameBoard {
         rowCount = n;
         colCount = m;
         int maxWordLen = Math.max(n, m) + 1;
-        int i;
-        int j;
         int dictSize = wordList.size();
-        // clear the board
-        for (i=0; i<n; i++)
-            for (j=0; j<m; j++)
-                chars[i][j] = '\0';
+
+        clearBoard();
         // add words
-        int tries = 0;
+        wordPlaceTries = 0;
         int pos = 0;
         String word;
         boolean success = false;
-        int shortRun = 0;
-        String badWords = "zyxq";
+        String badLetters = "zyxq";
 
-        while (tries < 100){
+        while (wordPlaceTries < 100){
             pos = rand.nextInt(dictSize);
             word = wordList.get(pos);
-            if (addedWords.contains(word)){
+            // if ineligible or already added word, throw it
+            boolean skipWord = addedWords.contains(word)
+                    || word.length() < 4
+                    || word.length() > maxWordLen
+                    || hasBadLetters(word, badLetters);
+            if (skipWord){
                 continue;
             }
-            success = false;
-            shortRun = 0;
-            // if in-elligible word, throw it
-            if (word.length() < 4 || word.length() > maxWordLen)
-                continue;
-            for (i=0; i<badWords.length(); i++){
-                if (word.contains(badWords.charAt(i) + "")){
-                    break;
-                }
-            }
-            if (i != badWords.length()) // premature exit
-                continue;
             // find place for word
-            for (i=0; i<n; i++) {
-                for (j=0; j<m; j++){
-                    if (shortRun == 0) {
-                        int posArr[] = findSameCharGrid(word.charAt(0));
-                        if (posArr[0] != -1) {
-                            i = posArr[0]; j = posArr[1]; shortRun = 1;
-                        } else {
-                            shortRun = 2;
-                        }
-                    }
-                    if (chars[i][j] == '\0' || chars[i][j] == word.charAt(0)){
-                        HashSet<String> visited = new HashSet<>();
-                        ArrayList<String> order = new ArrayList<>();
-                        order.add(i + " " + j);
-                        visited.add(i + " " + j);
-                        success = fitWord(word.substring(1), i, j, visited, order);
-                        if (success){
-                            tries = 0;
-                            int count = 0;
-                            addedWords.add(word);
-                            addedWordsList.add(word);
-                            // add word to board
-                            if (solutionList.size() != word.length()){
-                                Log.v(LOG_TAG, word + " " + solutionList.toString());
-                            }
-                            for (String s: solutionList){
-                                int x = Integer.parseInt(s.split("\\s+")[0]);
-                                int y = Integer.parseInt(s.split("\\s+")[1]);
-                                chars[x][y] = word.charAt(count);
-                                count++;
-                            }
-                            break;
-                        }
-                    }
-                    if (shortRun == 1){
-                        shortRun = 2; i=0; j=-1;
-                    }
-                }
-                if (success)
-                    break;
-            }
+            success = findPlaceForWord(word, addedWords, addedWordsList);
             if (!success)
-                tries++;
+                wordPlaceTries++;
         }
         // end things
         // fill remaining by anything
-        for (i=0; i<n; i++) {
-            for (j = 0; j < m; j++) {
-                if (chars[i][j] == '\0')
-                    chars[i][j] = (char) (97 + rand.nextInt(26));
-            }
-        }
+        fillRestCharsWithRandomLetters();
 
         Log.v(LOG_TAG, "words added " + addedWords.size());
         Log.v(LOG_TAG, "words added " + addedWordsList.toString());
@@ -163,9 +178,7 @@ public class GameBoard {
         int arr[] = {-1, -1};
         for (int i=x-1; i<=x+1 && i<rowCount; i++) {
             for (int j = y - 1; j <= y + 1 && j < colCount; j++) {
-                if (!possibleXY(i, j))
-                    continue;
-                if (visited.contains(i + " " + j))
+                if (!possibleXY(i, j) || visited.contains(i + " " + j))
                     continue;
                 if (chars[i][j] == c){
                     arr[0] = i;
@@ -188,8 +201,8 @@ public class GameBoard {
         }
         boolean success = false;
         int shortRun = 0;
-        for (i=x-1; i<=x+1 && i<rowCount; i++){
-            for (j=y-1; j<=y+1 && j<colCount; j++){
+        for (i=x-1; i<=x+1 && i<rowCount && !success; i++){
+            for (j=y-1; j<=y+1 && j<colCount && !success; j++){
                 if (shortRun == 0){
                     int posArr[] = findSameCharNeighbour(s.charAt(0), x, y, visited);
                     if (posArr[0] != -1) {
@@ -198,9 +211,7 @@ public class GameBoard {
                         shortRun = 2;
                     }
                 }
-                if (!possibleXY(i, j))
-                    continue;
-                if (visited.contains(i + " " + j))
+                if (!possibleXY(i, j) || visited.contains(i + " " + j))
                     continue;
                 if (chars[i][j] == '\0' || chars[i][j] == s.charAt(0)){
                     HashSet<String> newVisited = new HashSet<String>(visited);
@@ -208,16 +219,11 @@ public class GameBoard {
                     newVisited.add(i + " " + j);
                     newOrder.add(i + " " + j);
                     success = fitWord(s.substring(1), i, j, newVisited, newOrder);
-                    if (success) {
-                        break;
-                    }
                 }
                 if (shortRun == 1){
                     shortRun = 2; i=0; j=-1;
                 }
             }
-            if (success)
-                break;
         }
         return success;
     }
@@ -269,16 +275,13 @@ public class GameBoard {
         // main solve
         int i, j;
         boolean ans = false;
-        for (i=x-1; i<=x+1 && i<rowCount; i++) {
+        for (i=x-1; i <= x + 1 && i < rowCount; i++) {
             for (j = y - 1; j <= y + 1 && j < colCount; j++) {
-                if (!possibleXY(i, j))
-                    continue;
-                if (visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos))
+                if (visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos) || !possibleXY(i, j))
                     continue;
                 ans = findWords2Util(i, j, pos+1, str, new HashSet<String>(visited), new ArrayList<String>(order));
                 if (ans) break;
             }
-            if (ans) break;
         }
         return ans;
     }

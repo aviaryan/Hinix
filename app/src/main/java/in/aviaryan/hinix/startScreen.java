@@ -17,13 +17,10 @@ import android.widget.RadioGroup;
 public class startScreen extends AppCompatActivity{
 
     private Button play;
-    private Button commandButton;
-    private RadioGroup rg;
     private RadioButton rb1;
     private RadioButton rb2;
-    private RadioButton rb3;
     private  int selectedId=1;
-    static ProgressDialog progressDialog;
+    public static ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +40,10 @@ public class startScreen extends AppCompatActivity{
 
             }
         });
-        rg = (RadioGroup) findViewById(R.id.radiogrp);
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radiogrp);
         rb1=(RadioButton) findViewById(R.id.easy);
         rb2=(RadioButton) findViewById(R.id.moderate);
-        rb3=(RadioButton) findViewById(R.id.hard);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.hard);
         //final String value = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
         //rb = (RadioButton) findViewById(selectedId);
@@ -63,7 +60,7 @@ public class startScreen extends AppCompatActivity{
                 /*Toast.makeText(getBaseContext(), selectedId+"", Toast.LENGTH_SHORT).show();*/
             }
         });
-        commandButton = (Button) findViewById(R.id.instr);
+        Button commandButton = (Button) findViewById(R.id.instr);
         commandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
