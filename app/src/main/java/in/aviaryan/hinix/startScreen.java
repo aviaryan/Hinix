@@ -1,5 +1,6 @@
 package in.aviaryan.hinix;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -22,19 +23,24 @@ public class startScreen extends AppCompatActivity{
     private RadioButton rb2;
     private RadioButton rb3;
     private  int selectedId=1;
+    static ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_screen);
 
+        progressDialog = new ProgressDialog(startScreen.this);
+        progressDialog.setMessage("Please Wait!!");
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.show();
                 Intent i =new Intent(startScreen.this, MainActivity.class);
                 i.putExtra("Level",selectedId);
                 startActivity(i);
+
             }
         });
         rg = (RadioGroup) findViewById(R.id.radiogrp);
