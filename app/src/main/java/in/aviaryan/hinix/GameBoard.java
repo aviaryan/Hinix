@@ -304,9 +304,8 @@ public class GameBoard {
         return wordSet.contains(s);
     }
 
-    public List<String> getComputerList(boolean sorted) {
-        List<String> resultList = new ArrayList<>(computerList.size());
-        Collections.copy(resultList, computerList);
+    public ArrayList<String> getComputerList(boolean sorted) {
+        ArrayList<String> resultList = computerList;
         if (sorted) {
             Collections.sort(resultList);
         }
