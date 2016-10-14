@@ -265,10 +265,11 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this);
 
         // set title
-        alertDialogBuilder.setTitle("List of possible words (" + gameBoard.computerList.size() + ")\n\n");
+        alertDialogBuilder.setTitle("List of possible words (" +
+                gameBoard.getPossibleWordsCount() + ")\n\n");
         String temp= "";
-        for(String s:gameBoard.computerList){
-            temp+=s+"\n";
+        for(String s : gameBoard.getComputerList(true)){
+            temp += s + "\n";
         }
 
         // set dialog message

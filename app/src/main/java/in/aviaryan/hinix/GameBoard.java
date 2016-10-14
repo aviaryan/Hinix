@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 
@@ -22,7 +23,7 @@ public class GameBoard {
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<String> solutionList;
 
-    public ArrayList<String> computerList = new ArrayList<>();
+    private ArrayList<String> computerList = new ArrayList<>();
     private HashSet<String> computerSet = new HashSet<>();
     private HashMap<String, ArrayList<String>> computerSteps = new HashMap<>();
 
@@ -301,5 +302,18 @@ public class GameBoard {
      */
     boolean isWord(String s){
         return wordSet.contains(s);
+    }
+
+    public List<String> getComputerList(boolean sorted) {
+        List<String> resultList = new ArrayList<>(computerList.size());
+        Collections.copy(resultList, computerList);
+        if (sorted) {
+            Collections.sort(resultList);
+        }
+        return resultList;
+    }
+
+    public int getPossibleWordsCount() {
+        return computerList.size();
     }
 }
