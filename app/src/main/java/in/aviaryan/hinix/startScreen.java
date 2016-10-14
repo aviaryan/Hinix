@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
  * Created by nilesh on 11/10/16.
  */
 
-public class startScreen extends AppCompatActivity{
+public class StartScreen extends AppCompatActivity{
 
     private Button play;
     private RadioButton rb1;
@@ -27,14 +27,14 @@ public class startScreen extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_screen);
 
-        progressDialog = new ProgressDialog(startScreen.this);
+        progressDialog = new ProgressDialog(StartScreen.this);
         progressDialog.setMessage("Please Wait!!");
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
-                Intent i =new Intent(startScreen.this, MainActivity.class);
+                Intent i =new Intent(StartScreen.this, MainActivity.class);
                 i.putExtra("Level",selectedId);
                 startActivity(i);
 
@@ -43,7 +43,7 @@ public class startScreen extends AppCompatActivity{
         RadioGroup rg = (RadioGroup) findViewById(R.id.radiogrp);
         rb1=(RadioButton) findViewById(R.id.easy);
         rb2=(RadioButton) findViewById(R.id.moderate);
-        RadioButton rb3 = (RadioButton) findViewById(R.id.hard);
+//        RadioButton rb3 = (RadioButton) findViewById(R.id.hard);
         //final String value = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
         //rb = (RadioButton) findViewById(selectedId);
@@ -65,7 +65,7 @@ public class startScreen extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        startScreen.this);
+                        StartScreen.this);
 
                 // set title
                 alertDialogBuilder.setTitle("Instructions");

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String LOG_TAG = "log";
 
     private int NUM_ROWS=8;
-    private  int NUM_COLS=8;
+    private int NUM_COLS=8;
     private int fontSize=18;
     private int counter=0;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startScreen.progressDialog.dismiss();
+        StartScreen.progressDialog.dismiss();
         user_current=(TextView) findViewById(R.id.current_word);
         TextView computer = (TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 NUM_COLS =6;
                 NUM_ROWS=6;
                 break;
+            default:
+                NUM_COLS = 8;
+                NUM_ROWS = 8;
         }
         initBoard();
         Log.e(LOG_TAG, "init done");
