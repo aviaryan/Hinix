@@ -1,0 +1,17 @@
+language: android
+jdk:
+  - oraclejdk8
+android:
+  components:
+    - tools 
+    - tools # see https://github.com/travis-ci/travis-ci/issues/
+    - platform-tools
+    - build-tools-24.0.2
+    - android-24
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-$ANDROID_TARGET
+licenses:
+    - android-sdk-license-.+
+script:
+  - ./gradlew build
