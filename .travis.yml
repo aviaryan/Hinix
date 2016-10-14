@@ -8,6 +8,9 @@ android:
     - platform-tools
     - build-tools-24.0.2
     - android-24
-
+    - extra-google-m2repository
+    - extra-android-m2repository
+licenses:
+    - android-sdk-license-.+
 script:
    - ./gradlew build connectedCheck
