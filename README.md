@@ -1,5 +1,6 @@
 # Hinix
 
+[![Travis branch](https://img.shields.io/travis/aviaryan/Hinix/neo-reborn.svg?maxAge=2592000)]()
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/16ed87cf73834773abb8d331d0ac9a8f)](https://www.codacy.com/app/aviaryan/Hinix)
 
 A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle game](https://en.wikipedia.org/wiki/Boggle)
