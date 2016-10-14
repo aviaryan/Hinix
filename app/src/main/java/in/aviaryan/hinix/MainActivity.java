@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startScreen.progressDialog.dismiss();
         user_current=(TextView) findViewById(R.id.current_word);
         computer=(TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
