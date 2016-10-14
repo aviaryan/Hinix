@@ -1,0 +1,9 @@
+language: java
+jdk: 
+    - openjdk7
+    - openjdk8
+
+# Customize when the notification emails are sent.
+notifications:
+    on_success: never
+    on_failure: always
