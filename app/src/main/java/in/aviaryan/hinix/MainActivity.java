@@ -1,14 +1,14 @@
 package in.aviaryan.hinix;
 
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -21,15 +21,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.security.AccessController.getContext;
-import android.content.res.AssetManager;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     GameBoard gameBoard;
@@ -149,12 +145,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleTouch(TextView tv) {
-        int id =tv.getId();
+        int id = tv.getId();
         int x = id / NUM_ROWS;
         int y = id % NUM_ROWS;
         String str = x + " " + y;
         if (coordsPassed.contains(str)){
-            // if already touched do nothing
+            // if already touched check and if the position of this tile is the latest in the coordsPassed arraylist
+            //if yes the clickBack else just return
+            if(coordsPassed.indexOf(str) == coordsPassed.size()-1) {
+                clickBack(tv);
+            }
             return;
         } else {
             // get last tile
