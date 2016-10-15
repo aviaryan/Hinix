@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
  * Created by nilesh on 11/10/16.
  */
 
-public class StartScreen extends AppCompatActivity{
+public class startScreen extends AppCompatActivity{
 
     private Button play;
     private RadioButton rb1;
@@ -27,14 +27,14 @@ public class StartScreen extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_screen);
 
-        progressDialog = new ProgressDialog(StartScreen.this);
+        progressDialog = new ProgressDialog(startScreen.this);
         progressDialog.setMessage("Please Wait!!");
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
-                Intent i =new Intent(StartScreen.this, MainActivity.class);
+                Intent i =new Intent(startScreen.this, MainActivity.class);
                 i.putExtra("Level",selectedId);
                 startActivity(i);
 
@@ -65,7 +65,7 @@ public class StartScreen extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        StartScreen.this);
+                        startScreen.this);
 
                 // set title
                 alertDialogBuilder.setTitle("Instructions");
