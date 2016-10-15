@@ -1,5 +1,7 @@
 package in.aviaryan.hinix;
 
+import android.os.AsyncTask;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+import dmax.dialog.SpotsDialog;
 
 import static android.R.attr.value;
 
@@ -22,18 +25,27 @@ public class startScreen extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb1,rb2,rb3;
     private  int selectedId=1;
+//    static ProgressDialog progressDialog;
+    private android.app.AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_screen1);
+        //progressDialog = new ProgressDialog(startScreen.this);
+        dialog = new SpotsDialog(startScreen.this);
 
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(startScreen.this, MainActivity.class);
-                i.putExtra("Level",selectedId);
-                startActivity(i);
+
+                    BackGroundTask backGroundTask = new BackGroundTask(startScreen.this , dialog) ;
+                    backGroundTask.execute() ;
+
+//                Intent i =new Intent(startScreen.this, MainActivity.class);
+//                i.putExtra("Level",selectedId);
+//                startActivity(i);
             }
         });
         rg = (RadioGroup) findViewById(R.id.radiogrp);
@@ -60,8 +72,7 @@ public class startScreen extends AppCompatActivity {
         instruction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        startScreen.this);
+                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(startScreen.this);
 
                 // set title
                 alertDialogBuilder.setTitle("Instructions");
@@ -74,7 +85,7 @@ public class startScreen extends AppCompatActivity {
                                 "The game ends as soon as these points get over.\n" +
                                 "Lastly you can challenge the game to show you all the possible words.\n\n");
 
-                AlertDialog alertDialog = alertDialogBuilder.create();
+                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
 
                 // show it
                 alertDialog.show();
@@ -82,8 +93,57 @@ public class startScreen extends AppCompatActivity {
         });
 
     }
-
+    public int getSelectedId() {
+                return selectedId;
+            }
     public void level(){
 
     }
 }
+class BackGroundTask extends AsyncTask<Void , Void ,Void> {
+        private android.app.AlertDialog dialog;
+        private startScreen activity ;
+                public BackGroundTask(startScreen activity , android.app.AlertDialog dialog) {
+                BackGroundTask.this.activity = activity ;
+                BackGroundTask.this.dialog = dialog ;
+            }
+
+
+                @Override
+        protected void onPreExecute() {
+                //Set Dialog properties here ...
+
+                                dialog.setTitle("Please Wait");
+                dialog.setMessage("Loading ... ");
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+
+
+                @Override
+        protected Void doInBackground(Void... params) {
+
+                        try {
+                        Thread.sleep(500);
+
+                                Intent i =new Intent(BackGroundTask.this.activity , MainActivity.class);
+                        i.putExtra("Level",BackGroundTask.this.activity.getSelectedId());
+                        BackGroundTask.this.activity.startActivity(i);
+
+                            } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                        return  null ;
+            }
+
+
+
+
+                @Override
+        protected void onPostExecute(Void result) {
+                if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+            }
+    }
