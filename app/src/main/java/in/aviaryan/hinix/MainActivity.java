@@ -152,11 +152,10 @@ public class MainActivity extends AppCompatActivity {
         String str = x + " " + y;
         if (coordsPassed.contains(str)){
             // if already touched check and if the position of this tile is the latest in the coordsPassed arraylist
-            //if yes the clickBack else just return
+            // if yes the clickBack else just return
             if(coordsPassed.indexOf(str) == coordsPassed.size()-1) {
                 clickBack(tv);
             }
-            return;
         } else {
             // get last tile
             boolean condition;
@@ -170,9 +169,24 @@ public class MainActivity extends AppCompatActivity {
                 coordsPassed.add(str);
                 currentWord += tv.getText();
                 tv.setBackground(getDrawable(R.drawable.new_border));
-                user_current.setText(currentWord);
+                showCurrentWord(0);
+                int wordStatus = checkWord();
+                if (wordStatus == 2){
+                    (Toast.makeText(this, "Congrats! " + currentWord + " is a valid word", Toast.LENGTH_SHORT)).show();
+                    buttonSubmit(null);
+                } else {
+                    showCurrentWord(wordStatus);
+                }
             }
         }
+    }
+
+    private void showCurrentWord(int status){
+        if (status == 1)
+            user_current.setTextColor(getResources().getColor(R.color.colorCurrentWordFaded));
+        else
+            user_current.setTextColor(getResources().getColor(R.color.colorCurrentWordDefault));
+        user_current.setText(currentWord);
     }
 
     private int [] coordsFromStr(String s){
@@ -189,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             currentWord = currentWord.substring(0, currentWord.length()-1);
             TextView tv = (TextView) findViewById(fetchId(ids[0], ids[1]));
             tv.setBackground(getDrawable(R.drawable.my_border));
-            user_current.setText(currentWord);
+            showCurrentWord(checkWord());
         }
     }
 
@@ -214,12 +228,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private int checkWord(){
+        if ("".equals(currentWord))
+            return 0;
+        if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
+            return 2;
+        } else if (uniqueWordList.contains(currentWord)){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public void buttonSubmit(View view) {
         if ("".equals(currentWord))
             return;
         if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
             // make ui changes
-            user_current.setText("");
             counter += currentWord.length();
             userScore.setText("" + counter);
             uniqueWordList.add(currentWord);
@@ -231,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             screen.setText(tempString);
             // reset vars
             currentWord = "";
+            showCurrentWord(0);  // display on UI
             coordsPassed.clear();
         } else {
             if (uniqueWordList.contains(currentWord)) {

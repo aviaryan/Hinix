@@ -118,17 +118,6 @@
                 android:layout_below="@id/grid"
                 android:layout_marginTop="10dp">
 
-
-                <Button
-                    android:id="@+id/buttonSubmit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="buttonSubmit"
-                    android:text="Submit" />
-
                 <Button
                     android:id="@+id/buttonShow"
                     android:layout_width="wrap_content"
