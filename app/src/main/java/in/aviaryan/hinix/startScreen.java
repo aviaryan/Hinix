@@ -14,13 +14,16 @@ import android.widget.RadioGroup;
  * Created by nilesh on 11/10/16.
  */
 
-public class startScreen extends AppCompatActivity{
+public class startScreen extends AppCompatActivity {
 
     private Button play;
+
+
     private RadioButton rb1;
     private RadioButton rb2;
-    private  int selectedId=1;
+
     public static ProgressDialog progressDialog;
+    private  int selectedId=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,6 @@ public class startScreen extends AppCompatActivity{
      * this method is yet to be implemented
      */
     public void level(){
-
+        return;
     }
 }
