@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 int wordStatus = checkWord();
                 if (wordStatus == 2){
                     (Toast.makeText(this, "Congrats! " + currentWord + " is a valid word", Toast.LENGTH_SHORT)).show();
-                    buttonSubmit(null);
+                    processCorrectWord();
                 } else {
                     showCurrentWord(wordStatus);
                 }
@@ -240,39 +240,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void buttonSubmit(View view) {
-        if ("".equals(currentWord))
-            return;
-        if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
-            // make ui changes
-            counter += currentWord.length();
-            userScore.setText("" + counter);
-            uniqueWordList.add(currentWord);
-            // reset all tiles
-            resetAllTiles();
-            // add to log
-            TextView screen = (TextView)findViewById(R.id.textScreen);
-            String tempString = screen.getText() + "\n" + currentWord;
-            screen.setText(tempString);
-            // reset vars
-            currentWord = "";
-            showCurrentWord(0);  // display on UI
-            coordsPassed.clear();
-        } else {
-            if (uniqueWordList.contains(currentWord)) {
-                Toast.makeText(getApplicationContext(), " Same Word Again!  ",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                user_current.setText("");
-                // reset all tiles
-                resetAllTiles();
-                Toast.makeText(getApplicationContext(), " Wrong Word. Please try for a new word. !!",
-                        Toast.LENGTH_LONG).show();
-                // reset vars
-                currentWord = "";
-                coordsPassed.clear();
-            }
-        }
+    public void processCorrectWord() {
+        // make ui changes
+        counter += currentWord.length();
+        userScore.setText("" + counter);
+        uniqueWordList.add(currentWord);
+        // reset all tiles
+        resetAllTiles();
+        // add to log
+        TextView screen = (TextView)findViewById(R.id.textScreen);
+        String tempString = screen.getText() + "\n" + currentWord;
+        screen.setText(tempString);
+        // reset vars
+        currentWord = "";
+        showCurrentWord(0);  // display on UI
+        coordsPassed.clear();
     }
 
     private void initBoard(){
