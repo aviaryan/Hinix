@@ -118,14 +118,6 @@
                 android:layout_below="@id/grid"
                 android:layout_marginTop="10dp">
 
-                <Button
-                    android:id="@+id/undo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="clickBack"
-                    android:text="Undo"
-
-                    />
 
                 <Button
                     android:id="@+id/buttonSubmit"
