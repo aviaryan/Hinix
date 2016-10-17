@@ -153,11 +153,10 @@ public class MainActivity extends AppCompatActivity {
         String str = x + " " + y;
         if (coordsPassed.contains(str)){
             // if already touched check and if the position of this tile is the latest in the coordsPassed arraylist
-            //if yes the clickBack else just return
+            // if yes the clickBack else just return
             if(coordsPassed.indexOf(str) == coordsPassed.size()-1) {
                 clickBack(tv);
             }
-            return;
         } else {
             // get last tile
             boolean condition;
@@ -171,9 +170,28 @@ public class MainActivity extends AppCompatActivity {
                 coordsPassed.add(str);
                 currentWord += tv.getText();
                 tv.setBackground(getDrawable(R.drawable.new_border));
-                user_current.setText(currentWord);
+                showCurrentWord(0);
+                int wordStatus = checkWord();
+                if (wordStatus == 2){
+                    (Toast.makeText(this, "Congrats! " + currentWord + " is a valid word", Toast.LENGTH_SHORT)).show();
+                    processCorrectWord();
+                } else {
+                    showCurrentWord(wordStatus);
+                }
             }
         }
+    }
+
+    private void showCurrentWord(int status){
+        int color;
+        if (status == 1)
+            color = R.color.colorCurrentWordFaded;
+        else if (status == 2)
+            color = R.color.colorCurrentWordCorrect;
+        else
+            color = R.color.colorCurrentWordDefault;
+        user_current.setTextColor(getResources().getColor(color));
+        user_current.setText(currentWord);
     }
 
     private int [] coordsFromStr(String s){
@@ -190,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             currentWord = currentWord.substring(0, currentWord.length()-1);
             TextView tv = (TextView) findViewById(fetchId(ids[0], ids[1]));
             tv.setBackground(getDrawable(R.drawable.my_border));
-            user_current.setText(currentWord);
+            showCurrentWord(checkWord());
         }
     }
 
@@ -215,39 +233,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void buttonSubmit(View view) {
+    private int checkWord(){
         if ("".equals(currentWord))
-            return;
+            return 0;
         if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
-            // make ui changes
-            user_current.setText("");
-            counter += currentWord.length();
-            userScore.setText("" + counter);
-            uniqueWordList.add(currentWord);
-            // reset all tiles
-            resetAllTiles();
-            // add to log
-            TextView screen = (TextView)findViewById(R.id.textScreen);
-            String tempString = screen.getText() + "\n" + currentWord;
-            screen.setText(tempString);
-            // reset vars
-            currentWord = "";
-            coordsPassed.clear();
+            return 2;
+        } else if (uniqueWordList.contains(currentWord)){
+            return 1;
         } else {
-            if (uniqueWordList.contains(currentWord)) {
-                Toast.makeText(getApplicationContext(), " Same Word Again!  ",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                user_current.setText("");
-                // reset all tiles
-                resetAllTiles();
-                Toast.makeText(getApplicationContext(), " Wrong Word. Please try for a new word. !!",
-                        Toast.LENGTH_LONG).show();
-                // reset vars
-                currentWord = "";
-                coordsPassed.clear();
-            }
+            return 0;
         }
+    }
+
+    public void processCorrectWord() {
+        // make ui changes
+        counter += currentWord.length();
+        userScore.setText("" + counter);
+        uniqueWordList.add(currentWord);
+        // reset all tiles
+        resetAllTiles();
+        // add to log
+        TextView screen = (TextView)findViewById(R.id.textScreen);
+        String tempString = screen.getText() + "\n" + currentWord;
+        screen.setText(tempString);
+        // reset vars
+        showCurrentWord(2);  // display on UI
+        currentWord = "";
+        coordsPassed.clear();
     }
 
     private void initBoard(){
