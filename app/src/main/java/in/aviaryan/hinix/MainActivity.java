@@ -182,10 +182,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCurrentWord(int status){
+        int color;
         if (status == 1)
-            user_current.setTextColor(getResources().getColor(R.color.colorCurrentWordFaded));
+            color = R.color.colorCurrentWordFaded;
+        else if (status == 2)
+            color = R.color.colorCurrentWordCorrect;
         else
-            user_current.setTextColor(getResources().getColor(R.color.colorCurrentWordDefault));
+            color = R.color.colorCurrentWordDefault;
+        user_current.setTextColor(getResources().getColor(color));
         user_current.setText(currentWord);
     }
 
@@ -252,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
         String tempString = screen.getText() + "\n" + currentWord;
         screen.setText(tempString);
         // reset vars
+        showCurrentWord(2);  // display on UI
         currentWord = "";
-        showCurrentWord(0);  // display on UI
         coordsPassed.clear();
     }
 

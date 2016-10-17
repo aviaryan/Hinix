@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorCurrentWordDefault">#757575</color>
-    <color name="colorCurrentWordFaded">#CACACA</color>
+    <color name="colorCurrentWordFaded">#C5E1A5</color>
+    <color name="colorCurrentWordCorrect">#4CAF50</color>
 </resources>
