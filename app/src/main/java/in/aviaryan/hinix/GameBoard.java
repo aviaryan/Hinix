@@ -16,8 +16,8 @@ import java.util.Random;
 
 public class GameBoard {
     public char[][] chars;
-    int rowCount;
-    int colCount;
+    private int rowCount;
+    private int colCount;
     private HashSet<String> wordSet = new HashSet<>();
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<String> solutionList;
