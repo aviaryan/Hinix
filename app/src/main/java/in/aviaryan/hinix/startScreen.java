@@ -15,17 +15,13 @@ import android.widget.RadioGroup;
  * Created by nilesh on 11/10/16.
  */
 
-public class startScreen extends AppCompatActivity{
+public class startScreen extends AppCompatActivity {
 
     private Button play;
-    private Button commandButton;
-    private RadioGroup rg;
     private RadioButton rb1;
     private RadioButton rb2;
-    private RadioButton rb3;
-    static ProgressDialog progressDialog;
-    private int selectedId=1;
-
+    public static ProgressDialog progressDialog;
+    private  int selectedId=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +43,10 @@ public class startScreen extends AppCompatActivity{
                 backGroundTask.execute() ;
             }
         });
-
-
-
-        rg = (RadioGroup) findViewById(R.id.radiogrp);
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radiogrp);
         rb1=(RadioButton) findViewById(R.id.easy);
         rb2=(RadioButton) findViewById(R.id.moderate);
-        rb3=(RadioButton) findViewById(R.id.hard);
+        //RadioButton rb3 = (RadioButton) findViewById(R.id.hard);
         //final String value = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
         //rb = (RadioButton) findViewById(selectedId);
@@ -70,7 +63,7 @@ public class startScreen extends AppCompatActivity{
                 /*Toast.makeText(getBaseContext(), selectedId+"", Toast.LENGTH_SHORT).show();*/
             }
         });
-        commandButton = (Button) findViewById(R.id.instr);
+        Button commandButton = (Button) findViewById(R.id.instr);
         commandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +97,7 @@ public class startScreen extends AppCompatActivity{
      * this method is yet to be implemented
      */
     public void level(){
-
+        return;
     }
 }
 

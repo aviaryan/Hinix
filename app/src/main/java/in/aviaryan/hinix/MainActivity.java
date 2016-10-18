@@ -30,17 +30,15 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
 
-    private TableLayout tableLayout;
     private Set<String> uniqueWordList = new HashSet<String>();
     private String currentWord = "";
     private ArrayList<String> coordsPassed = new ArrayList<>();
     private TextView user_current;
-    private TextView computer;
     private TextView userScore;
     private String LOG_TAG = "log";
 
     private int NUM_ROWS=8;
-    private  int NUM_COLS=8;
+    private int NUM_COLS=8;
     private int fontSize=18;
     private int counter=0;
 
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         startScreen.progressDialog.dismiss();
         user_current=(TextView) findViewById(R.id.current_word);
-        computer=(TextView) findViewById(R.id.max);
+        TextView computer = (TextView) findViewById(R.id.max);
         userScore=(TextView) findViewById(R.id.current);
 
         Intent mIntent = getIntent();
@@ -69,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
                 NUM_COLS =6;
                 NUM_ROWS=6;
                 break;
+            default:
+                NUM_COLS = 8;
+                NUM_ROWS = 8;
         }
         initBoard();
         Log.e(LOG_TAG, "init done");
         gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
-        tableLayout = (TableLayout) findViewById(R.id.grid);
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
