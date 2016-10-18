@@ -93,7 +93,8 @@ public class GameBoard {
         return false;
     }
 
-    private boolean hasBadLetters(String word, String badLetters) {
+    private boolean hasBadLetters(String word) {
+        String badLetters = "zyxq";
         for (int i = 0; i < badLetters.length(); i++){
             if (word.contains(badLetters.charAt(i) + "")){
                 return true;
@@ -129,7 +130,6 @@ public class GameBoard {
         int pos = 0;
         String word;
         boolean success = false;
-        String badLetters = "zyxq";
 
         while (wordPlaceTries < 100){
             pos = rand.nextInt(dictSize);
@@ -138,7 +138,7 @@ public class GameBoard {
             boolean skipWord = addedWords.contains(word)
                     || word.length() < 4
                     || word.length() > maxWordLen
-                    || hasBadLetters(word, badLetters);
+                    || hasBadLetters(word);
             if (skipWord){
                 continue;
             }
