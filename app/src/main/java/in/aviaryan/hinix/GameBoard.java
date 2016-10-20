@@ -277,7 +277,7 @@ public class GameBoard {
         boolean ans = false;
         for (i=x-1; i <= x + 1 && i < rowCount; i++) {
             for (j = y - 1; j <= y + 1 && j < colCount; j++) {
-                if (visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos) || !possibleXY(i, j))
+                if (!possibleXY(i, j) || visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos))
                     continue;
                 ans = findWords2Util(i, j, pos+1, str, new HashSet<String>(visited), new ArrayList<String>(order));
                 if (ans) break;
