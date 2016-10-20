@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/grid"
             android:layout_weight="1"
-            android:text="" />
+            android:text=" " />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
