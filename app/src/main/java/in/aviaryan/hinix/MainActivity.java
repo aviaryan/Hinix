@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
 
     private TableLayout tableLayout;
-    private Set<String> uniqueWordList = new HashSet<String>();
+    private Set<String> userWordSet = new HashSet<String>();
     private String currentWord = "";
     private ArrayList<String> coordsPassed = new ArrayList<>();
     private TextView user_current;
@@ -235,9 +236,9 @@ public class MainActivity extends AppCompatActivity {
     private int checkWord(){
         if ("".equals(currentWord))
             return 0;
-        if (!uniqueWordList.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
+        if (!userWordSet.contains(currentWord) && gameBoard.isWordOnBoard(currentWord)) {
             return 2;
-        } else if (uniqueWordList.contains(currentWord)){
+        } else if (userWordSet.contains(currentWord)){
             return 1;
         } else {
             return 0;
@@ -248,13 +249,9 @@ public class MainActivity extends AppCompatActivity {
         // make ui changes
         counter += currentWord.length();
         userScore.setText("" + counter);
-        uniqueWordList.add(currentWord);
+        userWordSet.add(currentWord);
         // reset all tiles
         resetAllTiles();
-        // add to log
-        TextView screen = (TextView)findViewById(R.id.textScreen);
-        String tempString = screen.getText() + "\n" + currentWord;
-        screen.setText(tempString);
         // reset vars
         showCurrentWord(2);  // display on UI
         currentWord = "";
@@ -281,13 +278,16 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder.setTitle("List of possible words (" +
                 gameBoard.getPossibleWordsCount() + ")\n\n");
         String temp= "";
+//        String clr = "#" + getString(0+R.color.colorCurrentWordCorrect).substring(3);
         for(String s : gameBoard.getComputerList(true)){
-            temp += s + "\n";
+            if (userWordSet.contains(s))
+                temp += "<font color=" + "green" + ">" + s + "</font><br>";
+            else
+                temp += s + "<br>";
         }
 
         // set dialog message
-        alertDialogBuilder
-                .setMessage(temp);
+        alertDialogBuilder.setMessage(Html.fromHtml(temp));
 
         AlertDialog alertDialog = alertDialogBuilder.create();
 
