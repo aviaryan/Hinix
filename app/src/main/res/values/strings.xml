@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Hinix</string>
+    <string name="instructions">
+        1. You are supposed to make as many words as you can from the given set of letters in the grid.
+        \n2. If the submitted word is a valid one then it is added to the list and the score would be updated.
+    </string>
 </resources>
