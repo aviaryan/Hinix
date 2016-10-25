@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        Karan {
-            keyAlias 'kaju'
-            keyPassword 'itskaran'
-            storeFile file('C:/Users/karan/karan.jks')
-            storePassword 'itskaran'
-        }
-    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -22,7 +14,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.Karan
         }
     }
 }
