@@ -19,7 +19,6 @@ public class startScreen extends AppCompatActivity{
 
     private Button play;
     private Button commandButton;
-    private Button aboutButton;
     private RadioGroup rg;
     private RadioButton rb1;
     private RadioButton rb2;
@@ -90,7 +89,7 @@ public class startScreen extends AppCompatActivity{
                 alertDialog.show();
             }
         });
-        aboutButton=(Button)findViewById(R.id.about);
+        Button aboutButton=(Button)findViewById(R.id.about);
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
