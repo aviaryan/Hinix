@@ -33,7 +33,6 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
     private final int minWidthMargin=80;
-    private final int minHeightMargin=400;
     private TableLayout tableLayout;
     private Set<String> userWordSet = new HashSet<String>();
     private String currentWord = "";
@@ -83,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
         Display mDisplay = getWindowManager().getDefaultDisplay();
         final int width  = mDisplay.getWidth();
         final int height = mDisplay.getHeight();
-        if(width-minWidthMargin<tableWidth)
+        if(convertPixelsToDp(tableWidth+minWidthMargin,getApplicationContext())>convertPixelsToDp(width,getApplicationContext()))
+        {
             tableWidth=width-minWidthMargin;
-        if(height-minHeightMargin<tableHeight)
-            tableHeight=height-minHeightMargin;
+            tableHeight=tableWidth;
+        }
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
         float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
         float tileHeight = tableHeightDP/(NUM_ROWS + 0.5f);
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
-
         if (NUM_ROWS <= 3 && NUM_COLS <= 3)
             fontSize = 24;
         else if (NUM_ROWS <= 6 && NUM_COLS <= 6)
