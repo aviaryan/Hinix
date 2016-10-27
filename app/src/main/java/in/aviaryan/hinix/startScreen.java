@@ -19,6 +19,7 @@ public class startScreen extends AppCompatActivity{
 
     private Button play;
     private Button commandButton;
+    private Button aboutButton;
     private RadioGroup rg;
     private RadioButton rb1;
     private RadioButton rb2;
@@ -86,6 +87,18 @@ public class startScreen extends AppCompatActivity{
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
                 // show it
+                alertDialog.show();
+            }
+        });
+        aboutButton=(Button)findViewById(R.id.about);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        startScreen.this);
+                alertDialogBuilder.setTitle("About");
+                alertDialogBuilder.setMessage("Credits:\n1.Avi Aryan\n2.Nilesh Chaturvedi\n3.Raju Koushik\n4.Saurabh Jain\n\nVersion 1.0");
+                AlertDialog alertDialog=alertDialogBuilder.create();
                 alertDialog.show();
             }
         });
