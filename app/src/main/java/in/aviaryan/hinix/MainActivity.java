@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         float tableWidth = tableLayout.getLayoutParams().width;
         Display mDisplay = getWindowManager().getDefaultDisplay();
         final int width  = mDisplay.getWidth();
-        final int height = mDisplay.getHeight();
         if(convertPixelsToDp(tableWidth+minWidthMargin,getApplicationContext())>convertPixelsToDp(width,getApplicationContext()))
         {
             tableWidth=width-minWidthMargin;
