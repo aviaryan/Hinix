@@ -14,7 +14,7 @@ A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle ga
 | ![](http://i.imgur.com/BwP0Q8K.png) | ![](http://i.imgur.com/6xZkGKU.png) | ![](http://i.imgur.com/FyOCQaH.png) |
 |-------------------------------------|-------------------------------------|-------------------------------------|
 | ![](http://i.imgur.com/4kNEvQg.png) | ![](http://i.imgur.com/OGntwc1.png) | ![](http://i.imgur.com/SN60kVY.png)|
-| ![](https://goo.gl/images/EPqNTf)
+| ![](http://www.languagewithlaura.com/wp-content/uploads/2013/01/Boggle.jpg)
 
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
