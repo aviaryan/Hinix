@@ -32,7 +32,6 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
-    private final int minWidthMargin=80;
     private TableLayout tableLayout;
     private Set<String> userWordSet = new HashSet<String>();
     private String currentWord = "";
@@ -79,13 +78,6 @@ public class MainActivity extends AppCompatActivity {
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
-        Display mDisplay = getWindowManager().getDefaultDisplay();
-        final int width  = mDisplay.getWidth();
-        if(convertPixelsToDp(tableWidth+minWidthMargin,getApplicationContext())>convertPixelsToDp(width,getApplicationContext()))
-        {
-            tableWidth=width-minWidthMargin;
-            tableHeight=tableWidth;
-        }
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
         float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
         float tileHeight = tableHeightDP/(NUM_ROWS + 0.5f);
