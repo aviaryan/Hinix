@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,6 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private GameBoard gameBoard;
-
     private TableLayout tableLayout;
     private Set<String> userWordSet = new HashSet<String>();
     private String currentWord = "";
@@ -79,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
         float tableWidth = tableLayout.getLayoutParams().width;
         float tableHeightDP = convertPixelsToDp(tableHeight, getApplicationContext());
         float tableWidthDP = convertPixelsToDp(tableWidth, getApplicationContext());
-        float tileHeight = tableHeightDP / (NUM_ROWS + 0.5f);
-        float tileWidth = tableWidthDP / (NUM_COLS + 1);
+        float tileHeight = tableHeightDP/(NUM_ROWS + 0.5f);
+        float tileWidth = tableWidthDP/ (NUM_COLS + 1);
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
-
         if (NUM_ROWS <= 3 && NUM_COLS <= 3)
             fontSize = 24;
         else if (NUM_ROWS <= 6 && NUM_COLS <= 6)
@@ -105,8 +104,12 @@ public class MainActivity extends AppCompatActivity {
                 charTile.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
                 charTile.setWidth((int) dpToPixel(tileWidth));
                 //charTile.setPadding(8,8,8,8);
-                charTile.setElevation(10);
-                charTile.setBackground(getDrawable(R.drawable.my_border));
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+                    charTile.setElevation(10);
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+                    charTile.setBackground(getDrawable(R.drawable.my_border));
+                else
+                    charTile.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_border));
                 //charTile.setBackgroundColor(Color.GREEN);
                 charTile.setId(NUM_ROWS * i + j);
                 charTile.setTypeface(null, Typeface.BOLD);
@@ -169,7 +172,10 @@ public class MainActivity extends AppCompatActivity {
             if (condition){
                 coordsPassed.add(str);
                 currentWord += tv.getText();
-                tv.setBackground(getDrawable(R.drawable.new_border));
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+                    tv.setBackground(getDrawable(R.drawable.new_border));
+                else
+                    tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.new_border));
                 showCurrentWord(0);
                 int wordStatus = checkWord();
                 if (wordStatus == 2){
@@ -207,7 +213,10 @@ public class MainActivity extends AppCompatActivity {
             coordsPassed.remove(coordsPassed.size()-1);
             currentWord = currentWord.substring(0, currentWord.length()-1);
             TextView tv = (TextView) findViewById(fetchId(ids[0], ids[1]));
-            tv.setBackground(getDrawable(R.drawable.my_border));
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+                tv.setBackground(getDrawable(R.drawable.my_border));
+            else
+                tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_border));
             showCurrentWord(checkWord());
         }
     }
@@ -228,7 +237,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < NUM_ROWS; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
                 TextView tv = (TextView) findViewById(fetchId(i, j));
-                tv.setBackground(getDrawable(R.drawable.my_border));
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+                    tv.setBackground(getDrawable(R.drawable.my_border));
+                else
+                    tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_border));
             }
         }
     }
