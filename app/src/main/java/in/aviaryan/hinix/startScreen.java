@@ -89,7 +89,17 @@ public class startScreen extends AppCompatActivity{
                 alertDialog.show();
             }
         });
-
+        Button aboutButton=(Button)findViewById(R.id.about);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder aboutDialogBuilder=new AlertDialog.Builder(startScreen.this);
+                aboutDialogBuilder.setTitle("ABOUT");
+                aboutDialogBuilder.setMessage("Contributors:\n1.Avi Aryan\n2.Nilesh Chaturvedi\n3.Raju Koushik\n4.Saurabh Jain\n\n\n                             Version 1.0");
+                AlertDialog aboutDialog=aboutDialogBuilder.create();
+                aboutDialog.show();
+            }
+        });
     }
 
 
