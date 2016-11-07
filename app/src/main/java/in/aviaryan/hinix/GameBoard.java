@@ -232,7 +232,7 @@ public class GameBoard {
     public void findWords2(){
         computerList.clear();
         computerSet.clear();
-        computerSteps.clear();
+        // computerSteps.clear();
         boolean ans;
         ArrayList<String> as = wordList;
         Collections.reverse(as);
@@ -243,7 +243,7 @@ public class GameBoard {
             for (int i = 0; i < rowCount; i++) {
                 for (int j = 0; j < colCount; j++) {
                     if (chars[i][j] == word.charAt(0))
-                        ans = findWords2Util(i, j, 1, word, new HashSet<String>(), new ArrayList<String>());
+                        ans = findWords2Util(i, j, 1, word, new HashSet<String>());
                     if (ans) break;
                 }
                 if (ans) break;
@@ -251,20 +251,20 @@ public class GameBoard {
         }
     }
 
-    private boolean findWords2Util(int x, int y, int pos, String str, HashSet<String> visited, ArrayList<String> order){
-        order.add(x + " " + y);
+    private boolean findWords2Util(int x, int y, int pos, String str, HashSet<String> visited){ //  ArrayList<String> order
+        // order.add(x + " " + y);
         visited.add(x + " " + y);
         if (str.length() == pos){
             computerList.add(str);
             computerSet.add(str);
-            computerSteps.put(str, order);
+            //computerSteps.put(str, order);
             return true;
         }
         // half word
         if (pos >= 4 && isWord(str.substring(0, pos)) && !computerSet.contains(str.substring(0, pos))){
             computerList.add(str.substring(0, pos));
             computerSet.add(str.substring(0, pos));
-            computerSteps.put(str.substring(0, pos), order);
+            //computerSteps.put(str.substring(0, pos), order);
         }
         // main solve
         int i, j;
@@ -275,7 +275,7 @@ public class GameBoard {
                     continue;
                 if (visited.contains(i + " " + j) || chars[i][j] != str.charAt(pos))
                     continue;
-                ans = findWords2Util(i, j, pos+1, str, new HashSet<String>(visited), new ArrayList<String>(order));
+                ans = findWords2Util(i, j, pos+1, str, new HashSet<String>(visited)); //  new ArrayList<String>(order)
                 if (ans) break;
             }
             if (ans) break;
