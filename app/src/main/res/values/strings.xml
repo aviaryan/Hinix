@@ -4,4 +4,16 @@
         1. You are supposed to make as many words as you can from the given set of letters in the grid.
         \n2. If the submitted word is a valid one then it is added to the list and the score would be updated.
     </string>
+    <string name="about_text">
+        Hinix is a challenging word game inspired from the classic board trivia \"Boggle\". The app is open source at
+        https://github.com/aviaryan/Hinix .
+        \n
+        \nContributors:
+        \n1. Avi Aryan
+        \n2. Nilesh Chaturvedi
+        \n3. Raju Koushik
+        \n4. Saurabh Jain
+        \n\n
+        \nVersion 1.2
+    </string>
 </resources>

@@ -7,23 +7,35 @@
 
     <Button
         android:id="@+id/play"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radiogrp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:elevation="10dp"
         android:text="PLAY!" />
 
     <Button
+        android:id="@+id/about"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/button"
+        android:elevation="10dp"
+        android:text="ABOUT" />
+
+    <Button
         android:id="@+id/instr"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/play"
+        android:layout_below="@+id/about"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/button"
         android:elevation="10dp"
         android:text="INSTRUCTIONS" />
@@ -72,17 +84,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo"/>
-    <Button
-        android:id="@+id/about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/instr"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button"
-        android:elevation="10dp"
-        android:text="ABOUT" />
     <!--<LinearLayout-->
         <!--android:id="@+id/score"-->
         <!--android:layout_below="@id/instr"-->
