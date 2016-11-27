@@ -50,8 +50,7 @@ public class GameBoard {
         colCount = m;
         int maxWordLen = Math.max(n, m) + 4;
         int triesLimit = Math.max(n, m) < 5 ? 7 : 4;
-        int i;
-        int j;
+        int i, j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
@@ -87,10 +86,13 @@ public class GameBoard {
                         }
                     }
                     if (chars[i][j] == '\0' || chars[i][j] == word.charAt(0)){
-                        HashSet<String> visited = new HashSet<>();
+                        // create visited array
+                        Boolean visited [] = new Boolean[rowCount*colCount];
+                        for (int i2 = 0; i2 < rowCount*colCount; i2++)
+                            visited[i2] = false;
                         ArrayList<String> order = new ArrayList<>();
                         order.add(i + " " + j);
-                        visited.add(i + " " + j);
+                        visited[i * rowCount + j] = true;
                         success = fitWord(word.substring(1), i, j, visited, order);
                         if (success){
                             tries = 0;
@@ -152,13 +154,13 @@ public class GameBoard {
     /*
      * find char 'c' in neighbour
      */
-    private int[] findSameCharNeighbour(char c, int x, int y, HashSet<String> visited){
+    private int[] findSameCharNeighbour(char c, int x, int y, Boolean [] visited){
         int arr[] = {-1, -1};
         for (int i=x-1; i<=x+1 && i<rowCount; i++) {
             for (int j = y - 1; j <= y + 1 && j < colCount; j++) {
                 if (!possibleXY(i, j))
                     continue;
-                if (visited.contains(i + " " + j))
+                if (visited[i * rowCount + j])
                     continue;
                 if (chars[i][j] == c){
                     arr[0] = i;
@@ -172,7 +174,7 @@ public class GameBoard {
     /*
      * Try word filling in the board
      */
-    public boolean fitWord(String s, int x, int y, HashSet<String> visited, ArrayList<String> order){
+    public boolean fitWord(String s, int x, int y, Boolean[] visited, ArrayList<String> order){
         int i, j;
         // base case
         if (s.length() == 0) {
@@ -193,12 +195,12 @@ public class GameBoard {
                 }
                 if (!possibleXY(i, j))
                     continue;
-                if (visited.contains(i + " " + j))
+                if (visited[i * rowCount + j])
                     continue;
                 if (chars[i][j] == '\0' || chars[i][j] == s.charAt(0)){
-                    HashSet<String> newVisited = new HashSet<String>(visited);
+                    Boolean [] newVisited = visited.clone();
                     ArrayList<String> newOrder = new ArrayList<String>(order);
-                    newVisited.add(i + " " + j);
+                    newVisited[i * rowCount + j] = true;
                     newOrder.add(i + " " + j);
                     success = fitWord(s.substring(1), i, j, newVisited, newOrder);
                     if (success) {
