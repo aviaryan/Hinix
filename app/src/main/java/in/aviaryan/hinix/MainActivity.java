@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -44,6 +46,19 @@ public class MainActivity extends AppCompatActivity {
     private  int NUM_COLS=8;
     private int fontSize=18;
     private int counter=0;
+    private int computerScore;
+
+    // Message Handler http://stackoverflow.com/questions/3391272/
+    private Handler handler_ = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            switch(msg.what){
+                case 1022:
+                    setComputerScore();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,11 +157,23 @@ public class MainActivity extends AppCompatActivity {
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
         }
         // loop ends
-        computer.setText(gameBoard.getComputerScore()+"");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // solves the board, so slow
+                computerScore = gameBoard.getComputerScore();
+                handler_.sendMessage(Message.obtain(handler_, 1022, null));
+            }
+        });
+        thread.start();
     }
 
     public int fetchId(int row, int col) {
         return row*NUM_ROWS + col;
+    }
+
+    private void setComputerScore(){
+        computer.setText(computerScore+"");
     }
 
     private void handleTouch(TextView tv) {
@@ -275,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Thanks to
             // https://github.com/ManiacDC/TypingAid/tree/master/Wordlists
-            InputStream inputStream = assetManager.open("wordlist_weighted_norvig_10k.txt");
+            InputStream inputStream = assetManager.open("wordlist_English_Gutenberg.txt");
             gameBoard = new GameBoard(inputStream);
         } catch (IOException e){
             (Toast.makeText(this, "There was a problem loading dictionary", Toast.LENGTH_LONG)).show();
