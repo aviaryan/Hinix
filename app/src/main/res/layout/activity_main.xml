@@ -79,7 +79,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="4dp"
-                            android:text="999"
+                            android:text="000"
                             android:textAlignment="gravity"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -96,6 +96,14 @@
                     android:textColor="#757575"/>
             </LinearLayout>
 
+            <!-- progress bar to show board loading
+             http://stackoverflow.com/questions/5259506/i-want-a-progress-circle-instead-of-progress-dialog
+            -->
+            <ProgressBar android:indeterminate="true"
+                android:layout_width="50dp" android:layout_height="50dp"
+                android:id="@+id/marker_progress" style="?android:attr/progressBarStyle"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"/>
 
             <TableLayout
                 android:id="@+id/grid"
@@ -115,6 +123,5 @@
         android:layout_alignParentRight="true"
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_dialog_info" />
-
 
 </RelativeLayout>

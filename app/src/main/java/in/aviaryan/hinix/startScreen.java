@@ -1,5 +1,6 @@
 package in.aviaryan.hinix;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,9 +12,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-/**
- * Created by nilesh on 11/10/16.
- */
 
 public class startScreen extends AppCompatActivity{
 
@@ -34,21 +32,15 @@ public class startScreen extends AppCompatActivity{
 
         progressDialog = new ProgressDialog(startScreen.this);
 
-
-
         play=(Button)findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //Set progressDialog properties and Intent in BackGroundTask ...
-
-                BackGroundTask backGroundTask = new BackGroundTask(startScreen.this , progressDialog) ;
-                backGroundTask.execute() ;
+                BackGroundTask backGroundTask = new BackGroundTask(startScreen.this , progressDialog);
+                backGroundTask.execute();
             }
         });
-
-
 
         rg = (RadioGroup) findViewById(R.id.radiogrp);
         rb1=(RadioButton) findViewById(R.id.easy);
@@ -125,38 +117,24 @@ class BackGroundTask extends AsyncTask<Void , Void ,Void> {
         BackGroundTask.this.dialog = dialog ;
     }
 
-
     @Override
     protected void onPreExecute() {
-        //Set Dialog properties here ...
-
+        // Set Dialog properties here ...
         dialog.setTitle("Please Wait");
         dialog.setMessage("Loading ... ");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 
-
     @Override
     protected Void doInBackground(Void... params) {
-
-        try {
-            Thread.sleep(500);
-
-            Intent i =new Intent(BackGroundTask.this.activity , MainActivity.class);
-            i.putExtra("Level",BackGroundTask.this.activity.getSelectedId());
-            BackGroundTask.this.activity.startActivity(i);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        Intent i =new Intent(BackGroundTask.this.activity , MainActivity.class);
+        i.putExtra("Level",BackGroundTask.this.activity.getSelectedId());
+        BackGroundTask.this.activity.startActivity(i);
         return  null ;
     }
-
-
-
 
     @Override
     protected void onPostExecute(Void result) {

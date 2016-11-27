@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 case 1022:
                     setComputerScore();
                     break;
+                case 1242:
+                    fillBoard();
+                    break;
                 default:
                     break;
             }
@@ -67,30 +71,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startScreen.progressDialog.dismiss();
-        user_current=(TextView) findViewById(R.id.current_word);
-        computer=(TextView) findViewById(R.id.max);
-        userScore=(TextView) findViewById(R.id.current);
+        user_current = (TextView) findViewById(R.id.current_word);
+        computer = (TextView) findViewById(R.id.max);
+        userScore = (TextView) findViewById(R.id.current);
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
         Log.e("Level", Level + "");
         switch (Level % 4) {
             case 1:
-                NUM_COLS =4;
-                NUM_ROWS=4;
+                NUM_COLS = 4;
+                NUM_ROWS = 4;
                 break;
             case 2:
-                NUM_COLS =5;
-                NUM_ROWS=5;
+                NUM_COLS = 5;
+                NUM_ROWS = 5;
                 break;
             case 3:
-                NUM_COLS =6;
-                NUM_ROWS=6;
+                NUM_COLS = 6;
+                NUM_ROWS = 6;
                 break;
         }
-        initBoard();
-        Log.e(LOG_TAG, "init done");
-        gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
+        // make loader visible
+        findViewById(R.id.marker_progress).setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initBoard();
+                gameBoard.makeBoard(NUM_ROWS,NUM_COLS);
+                handler_.sendMessage(Message.obtain(handler_, 1242, null));
+            }
+        }).start();
+    }
+
+    private void fillBoard(){
+        findViewById(R.id.marker_progress).setVisibility(View.GONE); // hide loader
         tableLayout = (TableLayout) findViewById(R.id.grid);
         float tableHeight = tableLayout.getLayoutParams().height;
         float tableWidth = tableLayout.getLayoutParams().width;
