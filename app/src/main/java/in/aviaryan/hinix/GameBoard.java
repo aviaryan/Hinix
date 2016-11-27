@@ -48,7 +48,8 @@ public class GameBoard {
         ArrayList<String> addedWordsList = new ArrayList<>();
         rowCount = n;
         colCount = m;
-        int maxWordLen = Math.max(n, m) + 1;
+        int maxWordLen = Math.max(n, m) + 4;
+        int triesLimit = Math.max(n, m) < 5 ? 25 : 15;
         int i;
         int j;
         int dictSize = wordList.size();
@@ -64,7 +65,7 @@ public class GameBoard {
         int shortRun = 0;
         String badWords = "zyxq";
 
-        while (tries < 100){
+        while (tries < triesLimit){
             pos = rand.nextInt(dictSize);
             word = wordList.get(pos);
             if (addedWords.contains(word)){
@@ -283,8 +284,68 @@ public class GameBoard {
         return ans;
     }
 
+    // New Algorithm
+    // Complexity depends on board size mainly
+    public void findWords3(){
+        Boolean visited [] = new Boolean[rowCount*colCount];
+        computerList.clear();
+        computerSet.clear();
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                findWords3Util(i, j, "" + chars[i][j], new HashSet<String>());
+            }
+        }
+        // remove duplicates
+        computerSet.addAll(computerList);
+        computerList.clear();
+        computerList.addAll(computerSet);
+    }
+
+    private int isValidPrefix(String prefix){
+        int l = 0, r = wordList.size() - 1, mid, tmp;
+        int ret = 0;
+        while (l <= r){
+            mid = (l+r)/2;
+            tmp = wordList.get(mid).compareTo(prefix);
+            if (tmp > 0){
+                r = mid-1;
+            } else if (tmp < 0) {
+                l = mid+1;
+            } else {
+                ret = 2; break;
+            }
+            // check prefix
+            if (ret == 0 && wordList.get(mid).startsWith(prefix)){
+                ret = 1;
+            }
+        }
+        return ret;
+    }
+
+    private void findWords3Util(int x, int y, String wordSoFar, HashSet<String> visited){
+        int ret = isValidPrefix(wordSoFar);
+        if (ret == 0)
+            return;
+        // ok string
+        visited.add(x + " " + y);
+        if (ret == 2){
+            computerList.add(wordSoFar);
+        }
+        // recurse
+        int i, j;
+        for (i=x-1; i<=x+1 && i<rowCount; i++) {
+            for (j = y - 1; j <= y + 1 && j < colCount; j++) {
+                if (!possibleXY(i, j))
+                    continue;
+                if (visited.contains(i + " " + j))
+                    continue;
+                findWords3Util(i, j, wordSoFar + chars[i][j], new HashSet<String>(visited));
+            }
+        }
+    }
+
     public int getComputerScore(){
-        findWords2();
+        findWords3();
         int score = 0;
         for (String s: computerList){
             score += s.length();
