@@ -48,9 +48,9 @@ public class GameBoard {
         ArrayList<String> addedWordsList = new ArrayList<>();
         rowCount = n;
         colCount = m;
-        int maxWordLen = Math.max(n, m) + 1;
-        int i;
-        int j;
+        int maxWordLen = Math.max(n, m) + 4;
+        int triesLimit = Math.max(n, m) < 5 ? 4 : 2;
+        int i, j;
         int dictSize = wordList.size();
         // clear the board
         for (i=0; i<n; i++)
@@ -62,9 +62,8 @@ public class GameBoard {
         String word;
         boolean success = false;
         int shortRun = 0;
-        String badWords = "zyxq";
 
-        while (tries < 100){
+        while (tries < triesLimit){
             pos = rand.nextInt(dictSize);
             word = wordList.get(pos);
             if (addedWords.contains(word)){
@@ -74,13 +73,6 @@ public class GameBoard {
             shortRun = 0;
             // if in-elligible word, throw it
             if (word.length() < 4 || word.length() > maxWordLen)
-                continue;
-            for (i=0; i<badWords.length(); i++){
-                if (word.contains(badWords.charAt(i) + "")){
-                    break;
-                }
-            }
-            if (i != badWords.length()) // premature exit
                 continue;
             // find place for word
             for (i=0; i<n; i++) {
@@ -94,10 +86,13 @@ public class GameBoard {
                         }
                     }
                     if (chars[i][j] == '\0' || chars[i][j] == word.charAt(0)){
-                        HashSet<String> visited = new HashSet<>();
+                        // create visited array
+                        Boolean visited [] = new Boolean[rowCount*colCount];
+                        for (int i2 = 0; i2 < rowCount*colCount; i2++)
+                            visited[i2] = false;
                         ArrayList<String> order = new ArrayList<>();
                         order.add(i + " " + j);
-                        visited.add(i + " " + j);
+                        visited[i * rowCount + j] = true;
                         success = fitWord(word.substring(1), i, j, visited, order);
                         if (success){
                             tries = 0;
@@ -159,13 +154,13 @@ public class GameBoard {
     /*
      * find char 'c' in neighbour
      */
-    private int[] findSameCharNeighbour(char c, int x, int y, HashSet<String> visited){
+    private int[] findSameCharNeighbour(char c, int x, int y, Boolean [] visited){
         int arr[] = {-1, -1};
         for (int i=x-1; i<=x+1 && i<rowCount; i++) {
             for (int j = y - 1; j <= y + 1 && j < colCount; j++) {
                 if (!possibleXY(i, j))
                     continue;
-                if (visited.contains(i + " " + j))
+                if (visited[i * rowCount + j])
                     continue;
                 if (chars[i][j] == c){
                     arr[0] = i;
@@ -179,7 +174,7 @@ public class GameBoard {
     /*
      * Try word filling in the board
      */
-    public boolean fitWord(String s, int x, int y, HashSet<String> visited, ArrayList<String> order){
+    public boolean fitWord(String s, int x, int y, Boolean[] visited, ArrayList<String> order){
         int i, j;
         // base case
         if (s.length() == 0) {
@@ -200,12 +195,12 @@ public class GameBoard {
                 }
                 if (!possibleXY(i, j))
                     continue;
-                if (visited.contains(i + " " + j))
+                if (visited[i * rowCount + j])
                     continue;
                 if (chars[i][j] == '\0' || chars[i][j] == s.charAt(0)){
-                    HashSet<String> newVisited = new HashSet<String>(visited);
+                    Boolean [] newVisited = visited.clone();
                     ArrayList<String> newOrder = new ArrayList<String>(order);
-                    newVisited.add(i + " " + j);
+                    newVisited[i * rowCount + j] = true;
                     newOrder.add(i + " " + j);
                     success = fitWord(s.substring(1), i, j, newVisited, newOrder);
                     if (success) {
@@ -283,8 +278,72 @@ public class GameBoard {
         return ans;
     }
 
+    // New Algorithm
+    // Complexity depends on board size mainly
+    public void findWords3(){
+        // create visited array
+        Boolean visited [] = new Boolean[rowCount*colCount];
+        for (int i = 0; i < rowCount*colCount; i++)
+            visited[i] = false;
+        // clear old data
+        computerList.clear();
+        computerSet.clear();
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                findWords3Util(i, j, "" + chars[i][j], visited.clone());
+            }
+        }
+        // remove duplicates
+        computerSet.addAll(computerList);
+        computerList.clear();
+        computerList.addAll(computerSet);
+    }
+
+    private int isValidPrefix(String prefix){
+        int l = 0, r = wordList.size() - 1, mid, tmp;
+        int ret = 0;
+        while (l <= r){
+            mid = (l+r)/2;
+            tmp = wordList.get(mid).compareTo(prefix);
+            if (tmp > 0){
+                r = mid-1;
+            } else if (tmp < 0) {
+                l = mid+1;
+            } else {
+                ret = 2; break;
+            }
+            // check prefix
+            if (ret == 0 && wordList.get(mid).startsWith(prefix)){
+                ret = 1;
+            }
+        }
+        return ret;
+    }
+
+    private void findWords3Util(int x, int y, String wordSoFar, Boolean[] visited){
+        int ret = isValidPrefix(wordSoFar);
+        if (ret == 0)
+            return;
+        // ok string
+        visited[rowCount * x + y] = true;
+        if (ret == 2){
+            computerList.add(wordSoFar);
+        }
+        // recurse
+        int i, j;
+        for (i=x-1; i<=x+1 && i<rowCount; i++) {
+            for (j = y - 1; j <= y + 1 && j < colCount; j++) {
+                if (!possibleXY(i, j))
+                    continue;
+                if (visited[rowCount * i + j])
+                    continue;
+                findWords3Util(i, j, wordSoFar + chars[i][j], visited.clone());
+            }
+        }
+    }
+
     public int getComputerScore(){
-        findWords2();
+        findWords3();
         int score = 0;
         for (String s: computerList){
             score += s.length();
