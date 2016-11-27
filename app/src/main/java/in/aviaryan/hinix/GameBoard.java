@@ -49,7 +49,7 @@ public class GameBoard {
         rowCount = n;
         colCount = m;
         int maxWordLen = Math.max(n, m) + 4;
-        int triesLimit = Math.max(n, m) < 5 ? 25 : 15;
+        int triesLimit = Math.max(n, m) < 5 ? 7 : 4;
         int i;
         int j;
         int dictSize = wordList.size();
@@ -63,7 +63,6 @@ public class GameBoard {
         String word;
         boolean success = false;
         int shortRun = 0;
-        String badWords = "zyxq";
 
         while (tries < triesLimit){
             pos = rand.nextInt(dictSize);
@@ -75,13 +74,6 @@ public class GameBoard {
             shortRun = 0;
             // if in-elligible word, throw it
             if (word.length() < 4 || word.length() > maxWordLen)
-                continue;
-            for (i=0; i<badWords.length(); i++){
-                if (word.contains(badWords.charAt(i) + "")){
-                    break;
-                }
-            }
-            if (i != badWords.length()) // premature exit
                 continue;
             // find place for word
             for (i=0; i<n; i++) {
@@ -287,12 +279,16 @@ public class GameBoard {
     // New Algorithm
     // Complexity depends on board size mainly
     public void findWords3(){
+        // create visited array
         Boolean visited [] = new Boolean[rowCount*colCount];
+        for (int i = 0; i < rowCount*colCount; i++)
+            visited[i] = false;
+        // clear old data
         computerList.clear();
         computerSet.clear();
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < colCount; j++) {
-                findWords3Util(i, j, "" + chars[i][j], new HashSet<String>());
+                findWords3Util(i, j, "" + chars[i][j], visited.clone());
             }
         }
         // remove duplicates
@@ -322,12 +318,12 @@ public class GameBoard {
         return ret;
     }
 
-    private void findWords3Util(int x, int y, String wordSoFar, HashSet<String> visited){
+    private void findWords3Util(int x, int y, String wordSoFar, Boolean[] visited){
         int ret = isValidPrefix(wordSoFar);
         if (ret == 0)
             return;
         // ok string
-        visited.add(x + " " + y);
+        visited[rowCount * x + y] = true;
         if (ret == 2){
             computerList.add(wordSoFar);
         }
@@ -337,9 +333,9 @@ public class GameBoard {
             for (j = y - 1; j <= y + 1 && j < colCount; j++) {
                 if (!possibleXY(i, j))
                     continue;
-                if (visited.contains(i + " " + j))
+                if (visited[rowCount * i + j])
                     continue;
-                findWords3Util(i, j, wordSoFar + chars[i][j], new HashSet<String>(visited));
+                findWords3Util(i, j, wordSoFar + chars[i][j], visited.clone());
             }
         }
     }
