@@ -7,8 +7,8 @@ android {
         applicationId "in.aviaryan.hinix"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 2
-        versionName "1.2"
+        versionCode 3
+        versionName "2.0"
     }
     buildTypes {
         release {
