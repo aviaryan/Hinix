@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 case 1022:
                     setComputerScore();
                     break;
+                default:
+                    break;
             }
         }
     };
