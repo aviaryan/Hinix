@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView userScore;
     private String LOG_TAG = "log";
 
-    private int NUM_ROWS=8;
-    private  int NUM_COLS=8;
-    private int fontSize=18;
+    private int NUM_ROWS = 8;
+    private  int NUM_COLS = 8;
+    private int fontSize = 18;
     private int counter=0;
-    private int computerScore;
+    private int computerScore = -1;
 
     // Message Handler http://stackoverflow.com/questions/3391272/
     private Handler handler_ = new Handler(){
@@ -327,6 +327,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonShow(View view) {
+        if (computerScore == -1) // return if not ready
+            return;
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 

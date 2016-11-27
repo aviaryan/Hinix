@@ -49,7 +49,7 @@ public class GameBoard {
         rowCount = n;
         colCount = m;
         int maxWordLen = Math.max(n, m) + 4;
-        int triesLimit = Math.max(n, m) < 5 ? 4 : 2;
+        int triesLimit = Math.max(n, m) < 5 ? 3 : 2;
         int i, j;
         int dictSize = wordList.size();
         // clear the board
