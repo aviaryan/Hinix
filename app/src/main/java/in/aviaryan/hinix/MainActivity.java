@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,7 +74,11 @@ public class MainActivity extends AppCompatActivity {
         user_current = (TextView) findViewById(R.id.current_word);
         computer = (TextView) findViewById(R.id.max);
         userScore = (TextView) findViewById(R.id.current);
-        computer.setText("");
+        computer.setVisibility(View.GONE);
+
+        // underline text http://stackoverflow.com/questions/2394935/
+        TextView wordsBtn = (TextView) findViewById(R.id.txtShowWords);
+        wordsBtn.setPaintFlags(wordsBtn.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
@@ -189,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setComputerScore(){
         findViewById(R.id.max_score_progress).setVisibility(View.GONE); // hide loading
+        computer.setVisibility(View.VISIBLE);
         computer.setText(computerScore+"");
     }
 
