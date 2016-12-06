@@ -1,6 +1,7 @@
 package in.aviaryan.hinix;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
+    private TextView wordsBtn;
     private String LOG_TAG = "log";
 
     private int NUM_ROWS = 8;
@@ -77,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         computer.setVisibility(View.GONE);
 
         // underline text http://stackoverflow.com/questions/2394935/
-        TextView wordsBtn = (TextView) findViewById(R.id.txtShowWords);
-        wordsBtn.setPaintFlags(wordsBtn.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+        wordsBtn = (TextView) findViewById(R.id.txtShowWords);
+        wordsBtn.setPaintFlags(wordsBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
@@ -334,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
     public void buttonShow(View view) {
         if (computerScore == -1) // return if not ready
             return;
-
+        wordsBtn.setText("Loading");
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
@@ -345,17 +347,22 @@ public class MainActivity extends AppCompatActivity {
 //        String clr = "#" + getString(0+R.color.colorCurrentWordCorrect).substring(3);
         for(String s : gameBoard.getComputerList(true)){
             if (userWordSet.contains(s))
-                temp += "<font color=" + "#F50057" + ">" + s + "</font><br>";  // @colorAccentDark
+                temp += "<font color=" + "#FF80AB" + ">" + s + "</font><br>";  // @colorAccentLight
             else
                 temp += s + "<br>";
         }
 
         // set dialog message
         alertDialogBuilder.setMessage(Html.fromHtml(temp));
-
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show it
         alertDialog.show();
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                wordsBtn.setText(getString(R.string.text_Words));
+            }
+        });
     }
 }
