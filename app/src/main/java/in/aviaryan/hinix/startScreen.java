@@ -1,6 +1,5 @@
 package in.aviaryan.hinix;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -97,13 +96,6 @@ public class startScreen extends AppCompatActivity{
 
     public int getSelectedId() {
         return selectedId;
-    }
-
-    /**
-     * this method is yet to be implemented
-     */
-    public void level(){
-
     }
 }
 

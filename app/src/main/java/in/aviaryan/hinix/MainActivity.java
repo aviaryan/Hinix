@@ -20,7 +20,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
-import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -91,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 NUM_COLS = 6;
                 NUM_ROWS = 6;
                 break;
+            default:
+                NUM_ROWS = 6;
+                NUM_COLS = 6;
         }
         // make loader visible
         findViewById(R.id.marker_progress).setVisibility(View.VISIBLE);
