@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4885ed"
-    android:paddingTop="70dp">
+    android:background="@color/colorPrimary"
+    android:paddingTop="50dp">
 
     <Button
         android:id="@+id/play"
@@ -12,10 +12,12 @@
         android:layout_below="@+id/radiogrp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="7dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/button"
-        android:elevation="10dp"
-        android:text="PLAY!" />
+        android:elevation="20dp"
+        android:text="@string/play_caps"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/about"
@@ -26,8 +28,10 @@
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/button"
-        android:elevation="10dp"
-        android:text="ABOUT" />
+        android:elevation="20dp"
+        android:text="@string/about_caps"
+        android:textColor="#C0FFFFFF"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/instr"
@@ -37,14 +41,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
         android:background="@drawable/button"
-        android:elevation="10dp"
-        android:text="INSTRUCTIONS" />
+        android:elevation="20dp"
+        android:text="@string/instructions_caps"
+        android:textColor="#C0FFFFFF"
+        android:textStyle="bold"/>
 
     <RadioGroup
         android:id="@+id/radiogrp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
@@ -52,7 +59,7 @@
             android:id="@+id/easy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:buttonTint="#ffffff"
             android:checked="true"
             android:text="Easy"
@@ -62,6 +69,7 @@
             android:id="@+id/moderate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:buttonTint="#ffffff"
             android:text="Moderate"
             android:textColor="#EEEEEE" />

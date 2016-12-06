@@ -17,4 +17,7 @@
         \n\n
         \nVersion 2.0
     </string>
+    <string name="play_caps">PLAY</string>
+    <string name="about_caps">ABOUT</string>
+    <string name="instructions_caps">INSTRUCTIONS</string>
 </resources>

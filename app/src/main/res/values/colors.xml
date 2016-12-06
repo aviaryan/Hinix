@@ -2,8 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#7986CB</color>
+
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentLight">#FF80AB</color>
+    <color name="colorAccentDark">#F50057</color>
+
     <color name="colorCurrentWordDefault">#757575</color>
-    <color name="colorCurrentWordFaded">#C5E1A5</color>
-    <color name="colorCurrentWordCorrect">#4CAF50</color>
+    <!--<color name="colorCurrentWordFaded">#C5E1A5</color>-->
+    <!--<color name="colorCurrentWordCorrect">#4CAF50</color>-->
+    <color name="colorCurrentWordFaded">@color/colorAccentLight</color>
+    <color name="colorCurrentWordCorrect">@color/colorAccent</color>
 </resources>
