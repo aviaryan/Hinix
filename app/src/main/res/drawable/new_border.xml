@@ -4,7 +4,7 @@
 
     <!-- view background color -->
     <solid
-        android:color="#db3236" >
+        android:color="@color/colorAccentDark" >
     </solid>
 
     <!-- view border color and width -->

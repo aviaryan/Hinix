@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- indigo
+    https://material.google.com/style/color.html#color-color-palette
+    -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryLight">#7986CB</color>
+    <color name="colorPrimaryMidLight">#5C6BC0</color>
 
     <color name="colorAccent">#FF4081</color>
     <color name="colorAccentLight">#FF80AB</color>

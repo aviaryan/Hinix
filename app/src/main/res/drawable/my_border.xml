@@ -4,7 +4,7 @@
 
     <!-- view background color -->
     <solid
-        android:color="#2196F3" >
+        android:color="@color/colorPrimaryMidLight" >
     </solid>
 
     <!-- view border color and width -->

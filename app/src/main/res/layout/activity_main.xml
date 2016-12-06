@@ -82,6 +82,13 @@
                             android:text="000"
                             android:textAlignment="gravity"
                             android:textSize="15sp" />
+
+                        <ProgressBar android:indeterminate="true"
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/max_score_progress" style="?android:attr/progressBarStyle"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="invisible"/>
                     </LinearLayout>
 
                 </LinearLayout>

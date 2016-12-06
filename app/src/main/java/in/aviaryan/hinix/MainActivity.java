@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         user_current = (TextView) findViewById(R.id.current_word);
         computer = (TextView) findViewById(R.id.max);
         userScore = (TextView) findViewById(R.id.current);
+        computer.setText("");
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
@@ -118,13 +119,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
-        if (NUM_ROWS <= 3 && NUM_COLS <= 3)
-            fontSize = 24;
-        else if (NUM_ROWS <= 6 && NUM_COLS <= 6)
-            fontSize = 18;
-        else
-            fontSize = 16;
-
+        fontSize = 22 - (NUM_COLS-4)*2;
 
         for (int i = 0; i < NUM_ROWS; i++) {
             // Make TR
@@ -176,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
         }
         // loop ends
+        findViewById(R.id.max_score_progress).setVisibility(View.VISIBLE);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -192,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setComputerScore(){
+        findViewById(R.id.max_score_progress).setVisibility(View.GONE); // hide loading
         computer.setText(computerScore+"");
     }
 
@@ -342,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
 //        String clr = "#" + getString(0+R.color.colorCurrentWordCorrect).substring(3);
         for(String s : gameBoard.getComputerList(true)){
             if (userWordSet.contains(s))
-                temp += "<font color=" + "green" + ">" + s + "</font><br>";
+                temp += "<font color=" + "#F50057" + ">" + s + "</font><br>";  // @colorAccentDark
             else
                 temp += s + "<br>";
         }
