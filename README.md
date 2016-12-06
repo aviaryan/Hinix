@@ -11,9 +11,9 @@ A Interesting Word game. Hackathon Project. Inspired from the classic [Boggle ga
 
 ## Screenshots
 
-| ![](http://i.imgur.com/BwP0Q8K.png) | ![](http://i.imgur.com/6xZkGKU.png) | ![](http://i.imgur.com/FyOCQaH.png) |
+| ![](https://s16.postimg.org/fio96g6r9/device_2016_12_06_223106.png) | ![](https://s16.postimg.org/8cwi3zxo5/device_2016_12_06_223226.png) | ![](https://s16.postimg.org/yz8ysz1v9/device_2016_12_06_223158.png) |
 |-------------------------------------|-------------------------------------|-------------------------------------|
-| ![](http://i.imgur.com/4kNEvQg.png) | ![](http://i.imgur.com/OGntwc1.png) | ![](http://i.imgur.com/SN60kVY.png)|
+| ![](https://s16.postimg.org/t3jmjbbxx/device_2016_12_06_223001.png) | ![](https://s16.postimg.org/kwn1dzwhh/device_2016_12_06_223031.png) | ![](https://s16.postimg.org/mn62fhe0l/device_2016_12_06_223048.png)|
 
 ## Rules of the Game: 
 + You have to make as many words as possible from a given grid of words.
