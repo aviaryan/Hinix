@@ -3,7 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:paddingTop="50dp">
+    android:paddingTop="@dimen/start_screen_top_margin">
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="@dimen/start_screen_bottom_margin"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom">
 
     <Button
         android:id="@+id/play"
@@ -50,7 +68,6 @@
         android:id="@+id/radiogrp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
@@ -83,36 +100,6 @@
             android:textColor="#EEEEEE" />
     </RadioGroup>
 
-    <ImageView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"/>
-    <!--<LinearLayout-->
-        <!--android:id="@+id/score"-->
-        <!--android:layout_below="@id/instr"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="70dp">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="High Score: "-->
-            <!--android:textSize="36dp"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="50"-->
-            <!--android:textSize="36dp"/>-->
-
-    <!--</LinearLayout>-->
+    </RelativeLayout>
 
 </RelativeLayout>

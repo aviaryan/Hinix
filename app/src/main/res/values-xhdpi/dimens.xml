@@ -1,0 +1,9 @@
+<resources>
+    <!-- 4.7”   1280x720 xhdpi  4.65”  720x1280 xhdpi
+     http://stackoverflow.com/questions/32860815/how-to-define-dimens-xml-for-every-different-screen-size-in-android
+
+     These work like screen or more.. So hdpi will take effect in much larger screens also. Therefore this.
+     -->
+    <dimen name="start_screen_top_margin">50dp</dimen>
+    <dimen name="start_screen_bottom_margin">70dp</dimen>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <!-- 3.2” 320x480 mdpi -->
+    <dimen name="start_screen_top_margin">10dp</dimen>
+    <dimen name="start_screen_bottom_margin">20dp</dimen>
+</resources>
