@@ -1,10 +1,12 @@
 package in.aviaryan.hinix;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView user_current;
     private TextView computer;
     private TextView userScore;
+    private TextView wordsBtn;
     private String LOG_TAG = "log";
 
     private int NUM_ROWS = 8;
@@ -73,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
         user_current = (TextView) findViewById(R.id.current_word);
         computer = (TextView) findViewById(R.id.max);
         userScore = (TextView) findViewById(R.id.current);
+        computer.setVisibility(View.GONE);
+
+        // underline text http://stackoverflow.com/questions/2394935/
+        wordsBtn = (TextView) findViewById(R.id.txtShowWords);
+        wordsBtn.setPaintFlags(wordsBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         Intent mIntent = getIntent();
         int Level = mIntent.getIntExtra("Level", 1);
@@ -118,13 +126,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("height:", tableHeightDP + "");
         Log.e("Wi", tableWidthDP + "");
         Log.e("tileHeight", tileHeight + "");
-        if (NUM_ROWS <= 3 && NUM_COLS <= 3)
-            fontSize = 24;
-        else if (NUM_ROWS <= 6 && NUM_COLS <= 6)
-            fontSize = 18;
-        else
-            fontSize = 16;
-
+        fontSize = 22 - (NUM_COLS-4)*2;
 
         for (int i = 0; i < NUM_ROWS; i++) {
             // Make TR
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             tableLayout.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
         }
         // loop ends
+        findViewById(R.id.max_score_progress).setVisibility(View.VISIBLE);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -192,6 +195,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setComputerScore(){
+        findViewById(R.id.max_score_progress).setVisibility(View.GONE); // hide loading
+        computer.setVisibility(View.VISIBLE);
         computer.setText(computerScore+"");
     }
 
@@ -331,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
     public void buttonShow(View view) {
         if (computerScore == -1) // return if not ready
             return;
-
+        wordsBtn.setText("Loading");
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
@@ -342,17 +347,22 @@ public class MainActivity extends AppCompatActivity {
 //        String clr = "#" + getString(0+R.color.colorCurrentWordCorrect).substring(3);
         for(String s : gameBoard.getComputerList(true)){
             if (userWordSet.contains(s))
-                temp += "<font color=" + "green" + ">" + s + "</font><br>";
+                temp += "<font color=" + "#FF80AB" + ">" + s + "</font><br>";  // @colorAccentLight
             else
                 temp += s + "<br>";
         }
 
         // set dialog message
         alertDialogBuilder.setMessage(Html.fromHtml(temp));
-
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show it
         alertDialog.show();
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                wordsBtn.setText(getString(R.string.text_Words));
+            }
+        });
     }
 }
