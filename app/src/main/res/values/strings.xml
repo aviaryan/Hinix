@@ -2,8 +2,10 @@
     <string name="app_name">Hinix</string>
     <string name="instructions">
         1. You are supposed to make as many words as you can from the given set of letters in the grid.
-        \n2. If the submitted word is a valid one then it is added to the list and the score would be updated.
+        \n2. You can only select letters such that consecutive letters are neighbour to one another.
         \n3. The minimum valid word length is 4 i.e. "cars" is a valid word whereas "car" is not.
+        \n4. If the submitted word is a valid one then it is added to the list and the score would be updated.
+
     </string>
     <string name="about_text">
         Hinix is a challenging word game inspired from the classic board trivia \"Boggle\". The app is open source at
